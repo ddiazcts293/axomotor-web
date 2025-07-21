@@ -1,0 +1,20 @@
+{
+  "name": "axomotor-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "highcharts": "^12.3.0",
+    "ol": "^10.6.1"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}

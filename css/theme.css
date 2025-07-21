@@ -1,0 +1,11 @@
+/* definir aquí la paleta de colores */
+
+/* ejemplo */
+
+:root {
+    --background: #1c1917;
+    --text: #e7e5e4; 
+    --topBar: #333;
+    --topBarText: white;
+    --sideMenu: #eee;
+}

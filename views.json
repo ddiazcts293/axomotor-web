@@ -1,0 +1,37 @@
+[
+    {
+        "id": "home",
+        "displayName": "Inicio",
+        "icon": "",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    },
+    {
+        "id": "trips",
+        "displayName": "Viajes",
+        "icon": "",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    },
+    {
+        "id": "incidents",
+        "displayName": "Incidencias",
+        "icon": "",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    },
+    {
+        "id": "vehicles",
+        "displayName": "Vehículos",
+        "icon": "",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    },
+    {
+        "id": "admin",
+        "displayName": "Panel de administración",
+        "icon": "",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    }
+]
