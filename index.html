@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css">
-        <title>AxoMotor</title>
-    </head>
-    <body>
-        <header id="topBar">
-            <button id="toggleMenu">☰</button>
-            <span>AxoMotor</span>
-        </header>
-        <div id="appContainer">
-            <nav id="sideMenu" class="hidden"></nav>
-            <main id="mainPanel">
-                <div id="viewHeader">
-                    <button id="backButton" disabled>←</button>
-                    <span id="viewIcon"></span>
-                    <span id="viewTitle"></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Highcharts desde CDN -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <title>AxoMotor</title>
+</head>
+<body>
+    <div id="appContainer">
+        <nav id="sideMenu" class="expanded">
+            <div class="sideMenu-header">
+                <div class="logo-container">
+                  <span class="logo-text">AxoMotor</span>
+                  <img src="assets/logo.svg" alt="AxoMotor Logo" class="logo-img">
                 </div>
-                <div id="viewContent"></div>
-            </main>
-        </div>
-        <script type="module" src="js/index.js"></script>
-    </body>
+                <button id="toggleMenu" class="menu-icon">☰</button>
+              </div>
+
+
+
+            <div class="sideMenu-content">
+                <!-- Botones dinámicos se insertan aquí -->
+            </div>
+
+            <footer class="sideMenu-footer">
+                <div class="footer-user">
+                    <div class="foto">
+                      <img src="assets/employee.png" alt="Usuario">
+                    </div>
+                    <span class="nombre-usuario">Usuario</span>
+                    <div class="herramienta">
+                        <button title="Opciones">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </nav>
+
+        <main id="mainPanel">
+            <div id="viewHeader">
+                <button id="backButton" disabled>←</button>
+                <span id="viewIcon"></span>
+                <span id="viewTitle"></span>
+            </div>
+            <div id="viewContent"></div>
+        </main>
+    </div>
+
+    <script type="module" src="js/index.js"></script>
+</body>
 </html>

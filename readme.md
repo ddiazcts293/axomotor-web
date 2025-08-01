@@ -20,6 +20,7 @@ Usando una terminal (o la terminal integrada en VSCode) posicionada en la carpet
 
 ```
 root/
+|- assets/
 |- css/
 |   |- style.css
 |   |- theme.css
@@ -27,6 +28,10 @@ root/
 |   |- index.js
 |- views/
 |   |- admin/
+|   |   |- index.html
+|   |   |- index.js
+|   |   |- style.css
+|   |- drivers/
 |   |   |- index.html
 |   |   |- index.js
 |   |   |- style.css

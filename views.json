@@ -1,37 +1,52 @@
 [
     {
+    "id": "login",
+    "displayName": "",
+    "icon": ""
+    },
+    {
         "id": "home",
         "displayName": "Inicio",
-        "icon": "",
+        "icon": "fa-solid fa-house",
         "color": "#AAAAAA",
         "showInMenu": true
     },
     {
         "id": "trips",
         "displayName": "Viajes",
-        "icon": "",
+        "icon": "fa-solid fa-route",
         "color": "#AAAAAA",
         "showInMenu": true
     },
     {
         "id": "incidents",
         "displayName": "Incidencias",
-        "icon": "",
+        "icon": "fa-solid fa-triangle-exclamation",
+        "color": "#AAAAAA",
+        "showInMenu": true
+    },
+    {
+        "id": "drivers",
+        "displayName": "Conductores",
+        "icon": "fa-solid fa-user-tie",
         "color": "#AAAAAA",
         "showInMenu": true
     },
     {
         "id": "vehicles",
         "displayName": "Vehículos",
-        "icon": "",
+        "icon": "fa-solid fa-car",
         "color": "#AAAAAA",
         "showInMenu": true
     },
     {
         "id": "admin",
         "displayName": "Panel de administración",
-        "icon": "",
+        "icon": "fa-solid fa-cogs",
         "color": "#AAAAAA",
         "showInMenu": true
-    }
+    },
+    { "id": "settings",
+     "displayName": "Configuración",
+        "icon": "fa-solid fa-gear" }
 ]

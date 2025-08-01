@@ -1,0 +1,103 @@
+
+  /* Container general */
+  .home-kpis {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px 40px;
+    background: linear-gradient(135deg, #f9fafc 0%, #e6eaf4 100%);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(50, 70, 110, 0.12);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Barra superior resumen */
+  .kpi-summary-bar {
+    display: flex;
+    gap: 24px;
+    padding: 20px 20px 10px;
+    border-bottom: 1px solid #cfd8e7;
+    justify-content: center;
+  }
+
+  .kpi-summary-card {
+    background: linear-gradient(145deg, #ffffff, #dde3f4);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(100, 120, 160, 0.15);
+    padding: 15px 25px;
+    flex: 1 1 200px;
+    max-width: 220px;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .kpi-summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba(50, 70, 110, 0.3);
+  }
+
+  .kpi-value {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2e3a59;
+    margin-bottom: 6px;
+  }
+
+  .kpi-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #526488;
+  }
+
+  /* Grid de gráficos */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    padding: 24px 0;
+  }
+
+  .kpi-grid > div {
+    background: linear-gradient(145deg, #ffffff, #dde3f4);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(100, 120, 160, 0.12);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+    cursor: default;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .kpi-grid > div:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(50, 70, 110, 0.24);
+  }
+
+  .kpi-grid > div > svg,
+  .kpi-grid > div > div {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Responsive para móviles */
+  @media (max-width: 600px) {
+    .home-kpis {
+      padding: 0 12px 30px;
+    }
+    .kpi-summary-bar {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .kpi-summary-card {
+      max-width: 100%;
+      flex-grow: 1;
+    }
+    .kpi-grid > div {
+      height: 280px;
+      padding: 15px;
+    }
+  }

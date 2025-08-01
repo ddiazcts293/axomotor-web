@@ -1,0 +1,62 @@
+.vehicles-section {
+    padding: 1rem;
+}
+
+.vehicles-section header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.vehicles-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.vehicles-table th, .vehicles-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.vehicles-table th {
+    background: #eee;
+}
+
+/* Modales */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 1.5rem;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+}
+
+.modal-content label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.modal-content .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}

@@ -3,6 +3,7 @@ let currentView = null;
 let historyStack = [];
 let dataStore = {}; // permite pasar datos entre vistas
 
+// alternar sidebar colapsada
 const toggleMenuBtn = document.getElementById('toggleMenu');
 const sideMenu = document.getElementById('sideMenu');
 const viewContent = document.getElementById('viewContent');
@@ -16,30 +17,36 @@ fetch('/views.json')
     .then(json => {
         views = json;
         buildMenu();
-        navigateTo('home');
+        navigateTo('login', { navigateTo }); // empieza en login
     });
 
-// construye el menú lateral dinámicamente
-function buildMenu() {
-    // procesa cada vista
+    // construye el menú lateral dinámicamente
+    function buildMenu() {
+    const content = document.querySelector('.sideMenu-content');
+    content.innerHTML = ''; // evita duplicados
+
     views.forEach(view => {
+        // Excluir 'login' y 'settings' del menú lateral
+        if (view.id === 'login' || view.id === 'settings') return;
+
         const btn = document.createElement('button');
-        btn.textContent = `${view.icon} ${view.displayName}`;
-        btn.style.background = view.color;
+        btn.innerHTML = `<i class="${view.icon}"></i> <span class="text">${view.displayName}</span>`;
         btn.onclick = () => navigateTo(view.id);
-        sideMenu.appendChild(btn);
+        content.appendChild(btn);
     });
-}
+    }
+
+
+
 
 // cambia de vista usando imports dinámicos
+
 async function navigateTo(id, extraData = null, fromBackButton = false) {
     const newView = views.find(s => s.id === id);
     if (!newView || newView.id === currentView?.id) return;
 
-    // guarda la vista actual en el historial
     if (!fromBackButton && currentView) historyStack.push(currentView.id);
 
-    // intenta llamar a la función de limpieza del módulo anterior
     if (currentView && currentView.module && currentView.module.cleanUp) {
         try {
             await currentView.module.cleanUp();
@@ -51,23 +58,45 @@ async function navigateTo(id, extraData = null, fromBackButton = false) {
     currentView = newView;
     document.title = `${currentView.displayName} - AxoMotor`;
     viewTitle.textContent = currentView.displayName;
-    viewIcon.textContent = currentView.icon;
-    backButton.disabled = historyStack.length === 0;
+    viewIcon.innerHTML = `<i class="${currentView.icon}"></i>`; // 
 
-    // establece las rutas del HTML y JS
+    backButton.disabled = historyStack.length === 0;
+    if (id === "login") {
+        sideMenu.style.display = "none";
+        backButton.style.display = "none";
+        document.getElementById("viewHeader").style.display = "none";
+    } else {
+        sideMenu.style.display = "flex";
+        backButton.style.display = "inline-block";
+        document.getElementById("viewHeader").style.display = "flex";
+    }
+
+
+    
+
     const htmlPath = `/views/${currentView.id}/index.html`;
-    // carga el HTML de la vista
+    const cssPath = `/views/${currentView.id}/style.css`;
+
     const html = await fetch(htmlPath).then(res => res.text());
     viewContent.innerHTML = html;
 
+    document.querySelectorAll('link[data-view-style]').forEach(link => link.remove());
+
+    document.querySelector('.herramienta button').onclick = () => {
+    navigateTo('settings');
+};
+
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssPath;
+    link.setAttribute('data-view-style', currentView.id);
+    document.head.appendChild(link);
+
     try {
-        // importa el módulo JS
         const module = await import(`./../views/${currentView.id}/index.js`);
         currentView.module = module;
-
-        // verifica si el modulo define una función de inicialización
         if (module.init) {
-            // inicializa el módulo y le pasa los datos
             module.init(extraData, dataStore);
         }
     } catch (err) {
@@ -81,7 +110,7 @@ backButton.onclick = () => {
     if (last) navigateTo(last, null, true);
 };
 
-// alterna la visualización del menú lateral
 toggleMenuBtn.onclick = () => {
-    sideMenu.classList.toggle('hidden');
+  sideMenu.classList.toggle('collapsed');
+  sideMenu.classList.toggle('expanded');
 };

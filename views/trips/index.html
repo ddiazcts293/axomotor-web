@@ -1,4 +1,191 @@
-<h2>Viajes</h2>
-<p>algo</p>
-<div id="map"></div>
-<link rel="stylesheet" href="./style.css">
+<section class="trips-section">
+  <header class="trips-header">
+    <div class="trips-header-actions">
+      <button id="btnToggleMap" class="btn-primary">🗺️ Maximizar Mapa</button>
+      <button id="btnAddTrip" class="btn-primary">➕ Crear Viaje</button>
+    </div>
+  </header>
+
+  <div class="trips-container">
+    <!-- Mitad izquierda: Mapa -->
+    <div id="mapContainer">
+      <div id="map"></div>
+    </div>
+
+    <!-- Mitad derecha: Tabla -->
+    <div id="tripsTableContainer">
+      <table class="trips-table">
+        <thead>
+          <tr>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Conductor</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tripsTableBody">
+          <!-- Filas dinámicas -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Crear Viaje -->
+<div id="modalAddTrip" class="modal hidden">
+    <div class="modal-content">
+        <h3>Crear Nuevo Viaje</h3>
+        <form id="formAddTrip">
+            <label>Conductor*
+                <select name="conductor" required></select>
+            </label>
+            <label>Vehículo*
+                <select name="vehiculo" required></select>
+            </label>
+            <label>Fecha y Hora de Salida*
+                <input type="datetime-local" name="salida" required>
+            </label>
+            <label>Origen*
+                <select name="origen" required></select>
+                <button type="button" id="btnAddPlace">Registrar Lugar</button>
+            </label>
+            <label>Fecha y Hora de Llegada*
+                <input type="datetime-local" name="llegada" required>
+            </label>
+            <label>Destino*
+                <select name="destino" required></select>
+                <button type="button" id="btnAddPlace2">Registrar Lugar</button>
+            </label>
+
+            <h4>Paradas (opcional)</h4>
+            <table id="stopsTable">
+                <thead>
+                    <tr>
+                        <th>Lugar</th>
+                        <th>Fecha y Hora</th>
+                        <th>Duración</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button type="button" id="btnAddStop">➕ Agregar Parada</button>
+
+            <div class="actions">
+                <button type="submit">Crear</button>
+                <button type="button" id="cancelAddTrip">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Editar Viaje -->
+<div id="modalEditTrip" class="modal hidden">
+    <div class="modal-content">
+        <h3>Editar Viaje</h3>
+        <form id="formEditTrip">
+            <label>Conductor
+                <select name="conductor"></select>
+            </label>
+            <label>Vehículo
+                <select name="vehiculo"></select>
+            </label>
+            <label>Estado
+                <select name="estado">
+                    <option>Planeado</option>
+                    <option>En Ruta</option>
+                    <option>Finalizado</option>
+                    <option>Cancelado</option>
+                </select>
+            </label>
+            <label>Fecha y Hora de Salida
+                <input type="datetime-local" name="salida">
+            </label>
+            <label>Origen
+                <select name="origen"></select>
+            </label>
+            <label>Fecha y Hora de Llegada
+                <input type="datetime-local" name="llegada">
+            </label>
+            <label>Destino
+                <select name="destino"></select>
+            </label>
+
+            <h4>Paradas</h4>
+            <table id="editStopsTable">
+                <thead>
+                    <tr>
+                        <th>Lugar</th>
+                        <th>Fecha y Hora</th>
+                        <th>Duración</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button type="button" id="btnAddStopEdit">➕ Agregar Parada</button>
+
+            <div class="actions">
+                <button type="submit">Actualizar</button>
+                <button type="button" id="cancelEditTrip">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Info Viaje -->
+<div id="modalInfoTrip" class="modal hidden">
+    <div class="modal-content">
+        <h3>Información del Viaje</h3>
+        <div id="tripDetails"></div>
+
+        <h4>Paradas Planeadas</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lugar</th>
+                    <th>Radio</th>
+                    <th>Fecha y Hora</th>
+                    <th>Duración</th>
+                    <th>Creado por</th>
+                    <th>Fecha Creación</th>
+                    <th>Actualizado por</th>
+                    <th>Última Actualización</th>
+                </tr>
+            </thead>
+            <tbody id="tripStopsInfo"></tbody>
+        </table>
+
+        <button id="closeInfoTrip">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal Registrar Lugar -->
+<div id="modalAddPlace" class="modal hidden">
+    <div class="modal-content">
+        <h3>Registrar Lugar</h3>
+        <form id="formAddPlace">
+            <label>Nombre* <input type="text" name="nombre" required></label>
+            <label>Dirección <input type="text" name="direccion"></label>
+            <div id="placeMap" style="height:300px; background:#eee;"></div>
+            <label>Radio <input type="range" min="50" max="1000" value="200" name="radio"></label>
+            <div class="actions">
+                <button type="submit">Registrar</button>
+                <button type="button" id="cancelAddPlace">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Confirmar Eliminación -->
+<div id="modalDeleteTrip" class="modal hidden">
+    <div class="modal-content">
+        <h3>Eliminar Viaje</h3>
+        <p>¿Seguro que deseas eliminar este viaje? Esta acción no se puede deshacer.</p>
+        <div class="actions">
+            <button id="confirmDeleteTrip">Eliminar</button>
+            <button id="cancelDeleteTrip">Cancelar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<section class="drivers-section">
+    <header>
+        <h2>Conductores</h2>
+        <div class="filters">
+            <label for="estadoSelect">Estado de la cuenta:</label>
+            <select id="estadoSelect">
+                <option value="todos">Todos</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+                <option value="bloqueado">Bloqueado</option>
+            </select>
+        </div>
+    </header>
+
+    <table class="drivers-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo electrónico</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Está activo</th>
+                <th>Último inicio de sesión</th>
+            </tr>
+        </thead>
+        <tbody id="driversTableBody">
+            <!-- Filas dinámicas -->
+        </tbody>
+    </table>
+</section>

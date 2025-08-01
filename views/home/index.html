@@ -1,2 +1,47 @@
-<h2>Bienvenido a AxoMotor</h2>
-<p>Página de inicio</p>
+<section class="home-kpis">
+  <!-- Barra superior resumen KPIs -->
+  <div class="kpi-summary-bar">
+    <div class="kpi-summary-card" id="summary-OperationalVehiclesPercentage">
+      <i class="fas fa-bus-alt"></i>
+      <div class="kpi-info">
+        <div class="kpi-value">85%</div>
+        <div class="kpi-label">Vehículos Operativos</div>
+      </div>
+    </div>
+
+    <div class="kpi-summary-card" id="summary-OnTimeTripCompletedPercentage">
+      <i class="fas fa-clock"></i>
+      <div class="kpi-info">
+        <div class="kpi-value">92%</div>
+        <div class="kpi-label">Viajes Completados a Tiempo</div>
+      </div>
+    </div>
+
+    <div class="kpi-summary-card" id="summary-AvgTimeToResolveIncident">
+      <i class="fas fa-tools"></i>
+      <div class="kpi-info">
+        <div class="kpi-value">3.5h</div>
+        <div class="kpi-label">Tiempo Promedio por Incidencia</div>
+      </div>
+    </div>
+
+    <div class="kpi-summary-card" id="summary-PanicButtonActivations">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div class="kpi-info">
+        <div class="kpi-value">12</div>
+        <div class="kpi-label">Activaciones Botón de Pánico</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid con gráficos -->
+  <div class="kpi-grid">
+    <div id="OperationalVehiclesPercentage" style="height:300px;"></div>
+    <div id="OnTimeTripCompletedPercentage" style="height:300px;"></div>
+    <div id="AvgTimeToResolveIncident" style="height:300px;"></div>
+    <div id="PanicButtonActivations" style="height:300px;"></div>
+    <div id="IncidentsReported" style="height:300px;"></div>
+    <div id="GpsSignalLossTimePercentage" style="height:300px;"></div>
+    <div id="HarshDrivingEventsPer100Km" style="height:300px;"></div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+.incidents-section {
+    padding: 1rem;
+}
+
+.incidents-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.incidents-table th, .incidents-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.incidents-table th {
+    background: #eee;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+}
+.modal.hidden { display: none; }
+
+.modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 600px;
+    max-width: 90%;
+}
+
+.modal-content.large {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body {
+    display: flex;
+    gap: 1rem;
+}
+
+.map-section {
+    flex: 2;
+}
+
+.info-section {
+    flex: 1;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}

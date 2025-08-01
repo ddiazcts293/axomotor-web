@@ -1,11 +1,116 @@
-<h2>Incidentes</h2>
-<p>algo</p>
-<div id="container"></div>
-<p class="highcharts-description">
-    This chart shows how symbols and shapes can be used in charts.
-    Highcharts includes several common symbol shapes, such as squares,
-    circles and triangles, but it is also possible to add your own
-    custom symbols. In this chart, custom weather symbols are used on
-    data points to highlight that certain temperatures are warm while
-    others are cold.
-</p>
+<section class="incidents-section">
+    <header>
+        <button id="btnAddIncident">➕ Registrar Incidencia</button>
+    </header>
+
+    <!-- Tabla -->
+    <table id="incidentsTable" class="incidents-table">
+        <thead>
+            <tr>
+                <th data-col="incidente">Incidente</th>
+                <th data-col="tipo">Tipo</th>
+                <th data-col="prioridad">Prioridad</th>
+                <th data-col="estado">Estado</th>
+                <th data-col="registradoPor">Registrado por</th>
+                <th data-col="fechaRegistro">Fecha de Registro</th>
+                <th data-col="fechaActualizacion">Última Actualización</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="incidentsTableBody"></tbody>
+    </table>
+
+    <!-- Contenedor para gráficos -->
+    <div id="container" style="height:400px; margin-top:20px;"></div>
+</section>
+
+<!-- Modal Registrar Incidencia -->
+<div id="modalAddIncident" class="modal hidden">
+    <div class="modal-content">
+        <h3>Registrar Nueva Incidencia</h3>
+        <form id="formAddIncident">
+            <label>Viaje*
+                <select name="viaje" required></select>
+            </label>
+            <label>Tipo de incidente*
+                <select name="tipo" required></select>
+            </label>
+            <label>Incidente*
+                <select name="incidente" required></select>
+            </label>
+            <div id="incidentMap" style="height:200px; background:#eee;">Mapa aquí</div>
+            <label>Descripción <textarea name="descripcion"></textarea></label>
+            <label>Comentarios <textarea name="comentarios"></textarea></label>
+            <label>Incidente relacionado
+                <select name="relacionado"></select>
+            </label>
+            <label>Fotografías
+                <input type="file" name="fotos" multiple accept="image/*">
+            </label>
+            <div class="previewFotos"></div>
+            <div class="actions">
+                <button type="submit">Registrar</button>
+                <button type="button" id="cancelAddIncident">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Ver Incidencia -->
+<div id="modalInfoIncident" class="modal hidden">
+    <div class="modal-content large">
+        <div class="modal-body">
+            <div class="map-section">
+                <div id="infoIncidentMap" style="height:300px; background:#ccc;"></div>
+            </div>
+            <div class="info-section">
+                <h3>Detalle de Incidencia</h3>
+                <div id="incidentDetails"></div>
+                <button id="closeInfoIncident">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar Incidencia -->
+<div id="modalEditIncident" class="modal hidden">
+    <div class="modal-content">
+        <h3>Editar Incidencia</h3>
+        <form id="formEditIncident">
+            <label>Estado
+                <select name="estado">
+                    <option>Abierto</option>
+                    <option>En Proceso</option>
+                    <option>Cerrado</option>
+                </select>
+            </label>
+            <label>Prioridad
+                <select name="prioridad">
+                    <option>Baja</option>
+                    <option>Media</option>
+                    <option>Alta</option>
+                </select>
+            </label>
+            <label>Comentarios <textarea name="comentarios"></textarea></label>
+            <label>Fotografías
+                <input type="file" name="fotos" multiple accept="image/*">
+            </label>
+            <div class="actions">
+                <button type="submit">Actualizar</button>
+                <button type="button" id="cancelEditIncident">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Eliminar Incidencia -->
+<div id="modalDeleteIncident" class="modal hidden">
+    <div class="modal-content">
+        <h3>Eliminar Incidencia</h3>
+        <p>¿Seguro que deseas eliminar esta incidencia? Esta acción no se puede deshacer.</p>
+        <div class="actions">
+            <button id="confirmDeleteIncident">Eliminar</button>
+            <button id="cancelDeleteIncident">Cancelar</button>
+        </div>
+    </div>
+</div>
