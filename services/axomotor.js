@@ -199,22 +199,64 @@ const AxoMotorWebAPI = {
     return response.items || [];
   },
 
+  // Obtener viajes pendientes por ID de conductor
+  getPendingTripsByDriverId: async (driverId) => {
+    if (!driverId) throw new Error('El ID del conductor es obligatorio para obtener viajes pendientes.');
+    const response = await get(`trips/pending/${driverId}`);
+    return response.items || [];
+  },
+
+  // Crear una ubicación conocida
+  createKnownLocation: async (data) => {
+    if (!data?.name || !data?.latitude || !data?.longitude) {
+      throw new Error('La ubicación conocida debe tener name, latitude y longitude.');
+    }
+    return post('trips/knownLocations', data);
+  },
+
   // Obtener ubicaciones conocidas
   getKnownLocations: async () => {
     const response = await get('trips/knownLocations');
     return response.items || [];
   },
 
+  // Obtener ubicación conocida por ID
+  getKnownLocationById: async (id) => {
+    if (!id) throw new Error('El ID de la ubicación conocida es obligatorio.');
+    const response = await get(`trips/knownLocations/${id}`);
+    return response.items || [];
+  },
+
   // Actualizar ubicación conocida
   updateKnownLocation: async (id, data) => await put('trips/knownLocations', id, data),
 
+  // Eliminar ubicación conocida
+  deleteKnownLocation: async (id) => {
+    if (!id) throw new Error('El ID de la ubicación conocida es obligatorio para eliminarla.');
+    return del(`trips/knownLocations/${id}`);
+  },
+
   // Obtener eventos de un vehículo
-  getVehicleEvents: async (vehicleId) => await get(`vehicles/${vehicleId}/events`),
   getVehicleEvents: async (vehicleId) => {
     if (!vehicleId) throw new Error('El ID del vehículo es obligatorio para obtener eventos.');
     const response = await get(`vehicles/${vehicleId}/events`);
     return response.items || [];
   },
+
+  // Actualizar contraseña de usuario
+  updateUserPassword: async (userId) => {
+    if (!userId) {
+      throw new Error('El ID del usuario es obligatorio para cambiar la contraseña.');
+    }
+    return put(`userAccounts/${userId}/resetPassword`);
+  },
+
+  // Comprobar la conexión de un vehículo
+  checkVehicleConnection: async (vehicleId) => {
+    if (!vehicleId) throw new Error('El ID del vehículo es obligatorio para comprobar la conexión.');
+    const response = await get(`vehicles/${vehicleId}/checkConnection`);
+    return response.items || [];
+  }
 };
 
 
