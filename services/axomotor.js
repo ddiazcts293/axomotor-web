@@ -21,7 +21,8 @@ async function get(endpoint, options = {}) {
     const content = await response.json();
     if (Array.isArray(content)) return content;
     if (content.code !== 'success') throw new Error(content.reason || 'Unknown error');
-    return content.result || {};
+    //return content.result || {};
+    return content || {};
   } catch (error) {
     console.error('GET Error:', error);
     throw error;
@@ -42,7 +43,8 @@ async function post(endpoint, body = {}, options = {}) {
     });
     const content = await response.json();
     if (content.code !== 'success') throw new Error(content.reason || 'Unknown error');
-    return content.result || {};
+    //return content.result || {};
+    return content || {};
   } catch (error) {
     console.error('POST Error:', error);
     throw error;
@@ -63,7 +65,8 @@ async function put(endpoint, body = {}, options = {}) {
     });
     const content = await response.json();
     if (content.code !== 'success') throw new Error(content.reason || 'Unknown error');
-    return content.result || {};
+    //return content.result || {};
+    return content || {};
   } catch (error) {
     console.error('PUT Error:', error);
     throw error;
@@ -83,7 +86,8 @@ async function del(endpoint, options = {}) {
     });
     const content = await response.json();
     if (content.code !== 'success') throw new Error(content.reason || 'Unknown error');
-    return content.result || {};
+    //return content.result || {};
+    return content || {};
   } catch (error) {
     console.error('DELETE Error:', error);
     throw error;
