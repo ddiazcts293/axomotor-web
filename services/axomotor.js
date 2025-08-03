@@ -203,6 +203,14 @@ const AxoMotorWebAPI = {
     return response || [];
   },
 
+  // Obtener solo los conductores
+  getAllDrivers: async () => {
+    const response = await get('userAccounts');
+    // Filtramos solo los que tengan tipo 'driver'
+    return (response.result || []).filter(user => user.role === 'driver');
+  },
+
+
   // Obtener viajes pendientes por ID de conductor
   getPendingTripsByDriverId: async (driverId) => {
     if (!driverId) throw new Error('El ID del conductor es obligatorio para obtener viajes pendientes.');

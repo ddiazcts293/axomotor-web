@@ -6,12 +6,12 @@
     <table class="vehicles-table">
         <thead>
             <tr>
-                <th>Matrícula</th>
-                <th>Marca / Modelo / Año</th>
-                <th>Estado</th>
-                <th>En uso</th>
-                <th>Fecha Registro</th>
-                <th>Acciones</th>
+                <th style="color: #000">Matrícula</th>
+                <th style="color: #000">Marca / Modelo / Año</th>
+                <th style="color: #000">Estado</th>
+                <th style="color: #000">En uso</th>
+                <th style="color: #000">Fecha Registro</th>
+                <th style="color: #000">Acciones</th>
             </tr>
         </thead>
         <tbody id="vehiclesTableBody">
@@ -46,9 +46,11 @@
         <form id="formEditVehicle">
             <label>Estado
                 <select name="estado">
-                    <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="operative">Activo</option>
+                    <option value="outOfService">Inactivo</option>
+                    <option value="underMaintenance">Mantenimiento</option>
+                    <option value="documentsExpired">Documentos Expirados</option>
+                    <option value="heldByAuthorities">Retenido por las Autoridades</option>
                 </select>
             </label>
             <label>Matrícula <input type="text" name="matricula" required></label>

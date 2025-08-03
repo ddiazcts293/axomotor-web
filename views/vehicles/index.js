@@ -100,21 +100,48 @@ function setupEventHandlers() {
     };
 
     // Editar vehículo
-    document.getElementById("formEditVehicle").onsubmit = (e) => {
+    document.getElementById("formEditVehicle").onsubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        selectedVehicle.estado = formData.get("estado");
-        selectedVehicle.matricula = formData.get("matricula");
-        selectedVehicle.numRegistro = formData.get("numRegistro");
-        renderVehicles();
-        toggleModal("modalEdit", false);
+
+        const updatedData = {
+            plateNumber: formData.get("matricula"),
+            registrationNumber: formData.get("numRegistro"),
+            status: formData.get("estado")
+        };
+
+        try {
+            const response = await AxoMotorWebAPI.updateVehicle(selectedVehicle.id, updatedData);
+            console.log("Respuesta al actualizar:", response);
+
+            // Actualiza los datos locales por si renderizamos de nuevo
+            selectedVehicle.matricula = updatedData.plateNumber;
+            selectedVehicle.numRegistro = updatedData.registrationNumber;
+            selectedVehicle.estado = updatedData.status;
+
+            renderVehicles();
+            toggleModal("modalEdit", false);
+        } catch (error) {
+            console.error(error);
+            alert("Error al actualizar el vehículo");
+        }
     };
 
-    document.getElementById("confirmDelete").onclick = () => {
-        vehicles = vehicles.filter(v => v.id !== selectedVehicle.id);
-        renderVehicles();
-        toggleModal("modalDelete", false);
+
+    document.getElementById("confirmDelete").onclick = async () => {
+        try {
+            const response = await AxoMotorWebAPI.deleteVehicle(selectedVehicle.id);
+            console.log("Respuesta al eliminar:", response);
+
+            vehicles = vehicles.filter(v => v.id !== selectedVehicle.id);
+            renderVehicles();
+            toggleModal("modalDelete", false);
+        } catch (error) {
+            console.error("Error al eliminar:", error);
+            alert("No se pudo eliminar el vehículo.");
+        }
     };
+
 }
 
 function attachRowEvents() {
