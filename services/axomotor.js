@@ -147,12 +147,12 @@ const AxoMotorWebAPI = {
   // Vehicles
   getAllVehicles: async () => {
     const response = await get('vehicles');
-    return response.items || [];
+    return response || [];
   },
   getVehicleById: async (id) => {
     if (!id) throw new Error('El ID del vehículo es obligatorio.');
     const response = await get(`vehicles/${id}`);
-    return response.items || [];
+    return response || [];
   },
   createVehicle: (data) => {
     if (!data?.plateNumber || !data?.registrationNumber) {
@@ -171,12 +171,12 @@ const AxoMotorWebAPI = {
   // User Accounts
   getAllUsers: async () => {
     const response = await get('userAccounts');
-    return response.items || [];
+    return response || [];
   },
   getUserById: async (id) => {
     if (!id) throw new Error('El ID del usuario es obligatorio.');
     const response = await get(`userAccounts/${id}`);
-    return response.items || [];
+    return response || [];
   },
   createUser: (data) => {
     const { firstName, lastName, email, phoneNumber, role } = data || {};
@@ -200,14 +200,14 @@ const AxoMotorWebAPI = {
   getTripPositions: async (tripId) => {
     if (!tripId) throw new Error('El ID del viaje es obligatorio para obtener posiciones.');
     const response = await get(`trips/${tripId}/positions`);
-    return response.items || [];
+    return response || [];
   },
 
   // Obtener viajes pendientes por ID de conductor
   getPendingTripsByDriverId: async (driverId) => {
     if (!driverId) throw new Error('El ID del conductor es obligatorio para obtener viajes pendientes.');
     const response = await get(`trips/pending/${driverId}`);
-    return response.items || [];
+    return response || [];
   },
 
   // Crear una ubicación conocida
@@ -221,14 +221,14 @@ const AxoMotorWebAPI = {
   // Obtener ubicaciones conocidas
   getKnownLocations: async () => {
     const response = await get('trips/knownLocations');
-    return response.items || [];
+    return response || [];
   },
 
   // Obtener ubicación conocida por ID
   getKnownLocationById: async (id) => {
     if (!id) throw new Error('El ID de la ubicación conocida es obligatorio.');
     const response = await get(`trips/knownLocations/${id}`);
-    return response.items || [];
+    return response || [];
   },
 
   // Actualizar ubicación conocida
@@ -244,7 +244,7 @@ const AxoMotorWebAPI = {
   getVehicleEvents: async (vehicleId) => {
     if (!vehicleId) throw new Error('El ID del vehículo es obligatorio para obtener eventos.');
     const response = await get(`vehicles/${vehicleId}/events`);
-    return response.items || [];
+    return response || [];
   },
 
   // Actualizar contraseña de usuario
@@ -259,7 +259,7 @@ const AxoMotorWebAPI = {
   checkVehicleConnection: async (vehicleId) => {
     if (!vehicleId) throw new Error('El ID del vehículo es obligatorio para comprobar la conexión.');
     const response = await get(`vehicles/${vehicleId}/checkConnection`);
-    return response.items || [];
+    return response || [];
   }
 };
 
