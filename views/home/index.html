@@ -1,47 +1,60 @@
 <section class="home-kpis">
-  <!-- Barra superior resumen KPIs -->
-  <div class="kpi-summary-bar">
-    <div class="kpi-summary-card" id="summary-OperationalVehiclesPercentage">
-      <i class="fas fa-bus-alt"></i>
-      <div class="kpi-info">
-        <div class="kpi-value">85%</div>
-        <div class="kpi-label">Vehículos Operativos</div>
-      </div>
-    </div>
-
-    <div class="kpi-summary-card" id="summary-OnTimeTripCompletedPercentage">
-      <i class="fas fa-clock"></i>
-      <div class="kpi-info">
-        <div class="kpi-value">92%</div>
-        <div class="kpi-label">Viajes Completados a Tiempo</div>
-      </div>
-    </div>
-
-    <div class="kpi-summary-card" id="summary-AvgTimeToResolveIncident">
-      <i class="fas fa-tools"></i>
-      <div class="kpi-info">
-        <div class="kpi-value">3.5h</div>
-        <div class="kpi-label">Tiempo Promedio por Incidencia</div>
-      </div>
-    </div>
-
-    <div class="kpi-summary-card" id="summary-PanicButtonActivations">
-      <i class="fas fa-exclamation-triangle"></i>
-      <div class="kpi-info">
-        <div class="kpi-value">12</div>
-        <div class="kpi-label">Activaciones Botón de Pánico</div>
-      </div>
-    </div>
+  <!-- Pestañas -->
+  <div class="tabs">
   </div>
 
-  <!-- Grid con gráficos -->
-  <div class="kpi-grid">
-    <div id="OperationalVehiclesPercentage" style="height:300px;"></div>
-    <div id="OnTimeTripCompletedPercentage" style="height:300px;"></div>
-    <div id="AvgTimeToResolveIncident" style="height:300px;"></div>
-    <div id="PanicButtonActivations" style="height:300px;"></div>
-    <div id="IncidentsReported" style="height:300px;"></div>
-    <div id="GpsSignalLossTimePercentage" style="height:300px;"></div>
-    <div id="HarshDrivingEventsPer100Km" style="height:300px;"></div>
+  <div class="tab-content active" id="homeTab">
+    <header>
+      <h2>DASHBOARD</h2>
+      <select id="periodSelector">
+        <option value="today">Hoy</option>
+        <option value="week">Semana</option>
+        <option value="month">Mes</option>
+      </select>
+    </header>
+
+    <!-- Barra de resumen -->
+    <div class="kpi-summary-bar">
+      <div class="kpi-summary-card" id="summary-AVG_SPEED">
+        <i class="fas fa-tachometer-alt"></i>
+        <div class="kpi-info">
+          <div class="kpi-value">--</div>
+          <div class="kpi-label">Velocidad Promedio</div>
+        </div>
+      </div>
+      <div class="kpi-summary-card" id="summary-DELAY_TIME">
+        <i class="fas fa-clock"></i>
+        <div class="kpi-info">
+          <div class="kpi-value">--</div>
+          <div class="kpi-label">Tiempo de Retraso</div>
+        </div>
+      </div>
+      <div class="kpi-summary-card" id="summary-FUEL_EFF">
+        <i class="fas fa-gas-pump"></i>
+        <div class="kpi-info">
+          <div class="kpi-value">--</div>
+          <div class="kpi-label">Eficiencia Combustible</div>
+        </div>
+      </div>
+      <div class="kpi-summary-card" id="summary-HARD_BRAKE">
+        <i class="fas fa-car-crash"></i>
+        <div class="kpi-info">
+          <div class="kpi-value">--</div>
+          <div class="kpi-label">Frenados Bruscos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de KPIs -->
+    <div class="kpi-grid">
+      <div id="AVG_SPEED" class="chart"></div>
+      <div id="DELAY_TIME" class="chart"></div>
+      <div id="FUEL_EFF" class="chart"></div>
+      <div id="HARD_BRAKE" class="chart"></div>
+      <div id="IDLE_TIME" class="chart"></div>
+      <div id="MAINT_COST" class="chart"></div>
+      <div id="ROUTE_COMP" class="chart"></div>
+      <div id="SAFETY_SC" class="chart"></div>
+    </div>
   </div>
 </section>

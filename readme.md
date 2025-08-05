@@ -26,6 +26,8 @@ root/
 |   |- theme.css
 |- js/
 |   |- index.js
+|- services/
+|   |- /
 |- views/
 |   |- admin/
 |   |   |- index.html

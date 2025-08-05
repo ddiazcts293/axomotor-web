@@ -1,116 +1,96 @@
-<section class="incidents-section">
-    <header>
-        <button id="btnAddIncident">➕ Registrar Incidencia</button>
-    </header>
+<section class="incidents-container">
+  <header class="incidents-header">
+    <h2>Gestión de Incidentes</h2>
+    <button id="btnAddIncident" class="btn primary">Registrar Incidencia</button>
+  </header>
 
-    <!-- Tabla -->
-    <table id="incidentsTable" class="incidents-table">
-        <thead>
-            <tr>
-                <th data-col="incidente">Incidente</th>
-                <th data-col="tipo">Tipo</th>
-                <th data-col="prioridad">Prioridad</th>
-                <th data-col="estado">Estado</th>
-                <th data-col="registradoPor">Registrado por</th>
-                <th data-col="fechaRegistro">Fecha de Registro</th>
-                <th data-col="fechaActualizacion">Última Actualización</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="incidentsTableBody"></tbody>
-    </table>
+  <table id="incidentsTable" class="styled-table">
+    <thead>
+      <tr>
+        <th data-sort="incident">Incidente</th>
+        <th data-sort="type">Tipo</th>
+        <th data-sort="priority">Prioridad</th>
+        <th data-sort="status">Estado</th>
+        <th data-sort="registeredBy">Registrado por</th>
+        <th data-sort="registrationDate">Fecha de registro</th>
+        <th data-sort="revisionDate">Última actualización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Filas dinámicas -->
+    </tbody>
+  </table>
 
-    <!-- Contenedor para gráficos -->
-    <div id="container" style="height:400px; margin-top:20px;"></div>
-</section>
-
-<!-- Modal Registrar Incidencia -->
-<div id="modalAddIncident" class="modal hidden">
+  <!-- Modal Registrar / Editar -->
+  <div id="incidentModal" class="modal hidden">
     <div class="modal-content">
-        <h3>Registrar Nueva Incidencia</h3>
-        <form id="formAddIncident">
-            <label>Viaje*
-                <select name="viaje" required></select>
-            </label>
-            <label>Tipo de incidente*
-                <select name="tipo" required></select>
-            </label>
-            <label>Incidente*
-                <select name="incidente" required></select>
-            </label>
-            <div id="incidentMap" style="height:200px; background:#eee;">Mapa aquí</div>
-            <label>Descripción <textarea name="descripcion"></textarea></label>
-            <label>Comentarios <textarea name="comentarios"></textarea></label>
-            <label>Incidente relacionado
-                <select name="relacionado"></select>
-            </label>
-            <label>Fotografías
-                <input type="file" name="fotos" multiple accept="image/*">
-            </label>
-            <div class="previewFotos"></div>
-            <div class="actions">
-                <button type="submit">Registrar</button>
-                <button type="button" id="cancelAddIncident">Cancelar</button>
-            </div>
-        </form>
-    </div>
-</div>
+      <header>
+        <h3 id="modalTitle">Registrar Incidencia</h3>
+        <button class="close-modal">&times;</button>
+      </header>
+      <form id="incidentForm">
+        <label>Viaje 
+          <select id="tripSelect" required>
+            <option value="">Cargando viajes...</option>
+          </select>
+        </label>
 
-<!-- Modal Ver Incidencia -->
-<div id="modalInfoIncident" class="modal hidden">
+        <label>Tipo de incidente 
+          <select id="typeSelect" required>
+            <option value="mechanical">Mecánico</option>
+            <option value="electrical">Eléctrico</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+
+        <label>Incidente 
+          <select id="incidentCodeSelect" required>
+            <option value="">Seleccione un incidente</option>
+          </select>
+        </label>
+
+        <label>Descripción 
+          <textarea id="description"></textarea>
+        </label>
+
+        <label>Comentarios 
+          <textarea id="comments"></textarea>
+        </label>
+
+        <label>Incidente relacionado 
+          <select id="relatedIncidentSelect">
+            <option value="">Ninguno</option>
+          </select>
+        </label>
+
+        <label>Subir fotos 
+          <input type="file" id="photoUpload" multiple accept="image/*">
+        </label>
+        <div id="photoPreview" class="photo-preview"></div>
+
+        <footer>
+          <button type="submit" class="btn primary">Guardar</button>
+          <button type="button" class="btn secondary close-modal">Cancelar</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Ver Detalles -->
+  <div id="incidentDetailsModal" class="modal hidden">
     <div class="modal-content large">
-        <div class="modal-body">
-            <div class="map-section">
-                <div id="infoIncidentMap" style="height:300px; background:#ccc;"></div>
-            </div>
-            <div class="info-section">
-                <h3>Detalle de Incidencia</h3>
-                <div id="incidentDetails"></div>
-                <button id="closeInfoIncident">Cerrar</button>
-            </div>
-        </div>
+      <header>
+        <h3>Detalles de la Incidencia</h3>
+        <button class="close-modal">&times;</button>
+      </header>
+      <div class="modal-body">
+        <div class="details-map" id="incidentMap">[Mapa aquí]</div>
+        <div class="details-info" id="incidentDetailsInfo"></div>
+      </div>
+      <footer>
+        <button class="btn secondary close-modal">Cerrar</button>
+      </footer>
     </div>
-</div>
-
-<!-- Modal Editar Incidencia -->
-<div id="modalEditIncident" class="modal hidden">
-    <div class="modal-content">
-        <h3>Editar Incidencia</h3>
-        <form id="formEditIncident">
-            <label>Estado
-                <select name="estado">
-                    <option>Abierto</option>
-                    <option>En Proceso</option>
-                    <option>Cerrado</option>
-                </select>
-            </label>
-            <label>Prioridad
-                <select name="prioridad">
-                    <option>Baja</option>
-                    <option>Media</option>
-                    <option>Alta</option>
-                </select>
-            </label>
-            <label>Comentarios <textarea name="comentarios"></textarea></label>
-            <label>Fotografías
-                <input type="file" name="fotos" multiple accept="image/*">
-            </label>
-            <div class="actions">
-                <button type="submit">Actualizar</button>
-                <button type="button" id="cancelEditIncident">Cancelar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Modal Eliminar Incidencia -->
-<div id="modalDeleteIncident" class="modal hidden">
-    <div class="modal-content">
-        <h3>Eliminar Incidencia</h3>
-        <p>¿Seguro que deseas eliminar esta incidencia? Esta acción no se puede deshacer.</p>
-        <div class="actions">
-            <button id="confirmDeleteIncident">Eliminar</button>
-            <button id="cancelDeleteIncident">Cancelar</button>
-        </div>
-    </div>
-</div>
+  </div>
+</section>

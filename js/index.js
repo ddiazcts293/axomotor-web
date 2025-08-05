@@ -11,13 +11,17 @@ const backButton = document.getElementById('backButton');
 const viewTitle = document.getElementById('viewTitle');
 const viewIcon = document.getElementById('viewIcon');
 
+// Guardamos el ultimo estado de la barra ( para trips xdddd)
+let isSidebarCollapsed = false;
+
+
 // carga el archivo JSON con las vistas
 fetch('/views.json')
     .then(res => res.json())
     .then(json => {
         views = json;
         buildMenu();
-        navigateTo('login', { navigateTo }); // empieza en login
+        navigateTo('home', { navigateTo }); // empieza en /login 
     });
 
     // construye el menú lateral dinámicamente
@@ -37,11 +41,22 @@ fetch('/views.json')
     }
 
 
+    // cambia de vista usando imports dinámicos
 
+    import { supabase } from '../secrets';
 
-// cambia de vista usando imports dinámicos
+    // cambia de vista usando imports dinámicos
+    async function navigateTo(id, extraData = null, fromBackButton = false) {
+    // 🚨 protección de rutas
+    if (id !== "login") {
+        await updateUserMenu();
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+            console.warn("Usuario no autenticado, redirigiendo a login...");
+            return navigateTo("login");
+        }
+    }
 
-async function navigateTo(id, extraData = null, fromBackButton = false) {
     const newView = views.find(s => s.id === id);
     if (!newView || newView.id === currentView?.id) return;
 
@@ -58,7 +73,7 @@ async function navigateTo(id, extraData = null, fromBackButton = false) {
     currentView = newView;
     document.title = `${currentView.displayName} - AxoMotor`;
     viewTitle.textContent = currentView.displayName;
-    viewIcon.innerHTML = `<i class="${currentView.icon}"></i>`; // 
+    viewIcon.innerHTML = `<i class="${currentView.icon}"></i>`;
 
     backButton.disabled = historyStack.length === 0;
     if (id === "login") {
@@ -69,10 +84,23 @@ async function navigateTo(id, extraData = null, fromBackButton = false) {
         sideMenu.style.display = "flex";
         backButton.style.display = "inline-block";
         document.getElementById("viewHeader").style.display = "flex";
+
+        // 👉 Forzar colapsado al entrar a trips por primera vez
+        if (id === "trips" && !historyStack.includes("trips")) {
+            sideMenu.classList.add("collapsed");
+            sideMenu.classList.remove("expanded");
+            isSidebarCollapsed = true;
+        } else {
+            // Restaurar estado previo
+            if (isSidebarCollapsed) {
+                sideMenu.classList.add("collapsed");
+                sideMenu.classList.remove("expanded");
+            } else {
+                sideMenu.classList.remove("collapsed");
+                sideMenu.classList.add("expanded");
+            }
+        }
     }
-
-
-    
 
     const htmlPath = `/views/${currentView.id}/index.html`;
     const cssPath = `/views/${currentView.id}/style.css`;
@@ -82,10 +110,14 @@ async function navigateTo(id, extraData = null, fromBackButton = false) {
 
     document.querySelectorAll('link[data-view-style]').forEach(link => link.remove());
 
-    document.querySelector('.herramienta button').onclick = () => {
-    navigateTo('settings');
-};
-
+    document.querySelector('.herramienta button').onclick = async () => {
+        const confirmLogout = confirm("¿Cerrar sesión?");
+        if (confirmLogout) {
+            await supabase.auth.signOut();
+            localStorage.removeItem("isLoggedIn");
+            navigateTo('login');
+        }
+    };
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -97,20 +129,37 @@ async function navigateTo(id, extraData = null, fromBackButton = false) {
         const module = await import(`./../views/${currentView.id}/index.js`);
         currentView.module = module;
         if (module.init) {
-            module.init(extraData, dataStore);
+            module.init({ ...extraData, navigateTo }, dataStore);
         }
     } catch (err) {
         console.error(`No se pudo cargar el módulo JS de ${currentView.id}`, err);
     }
 }
 
-// retrocede a la vista anterior
-backButton.onclick = () => {
-    const last = historyStack.pop();
-    if (last) navigateTo(last, null, true);
-};
+        async function updateUserMenu() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            const nombreUsuario = document.querySelector(".nombre-usuario");
+            nombreUsuario.textContent = user.email; // o user.user_metadata.fullName si lo guardas
+        }
+    }
 
-toggleMenuBtn.onclick = () => {
+
+
+    // retrocede a la vista anterior
+    backButton.onclick = () => {
+        const last = historyStack.pop();
+        if (last) navigateTo(last, null, true);
+    };
+
+    toggleMenuBtn.onclick = () => {
+    sideMenu.classList.toggle('collapsed');
+    sideMenu.classList.toggle('expanded');
+    };
+
+    toggleMenuBtn.onclick = () => {
   sideMenu.classList.toggle('collapsed');
   sideMenu.classList.toggle('expanded');
+  isSidebarCollapsed = sideMenu.classList.contains('collapsed');
 };
+

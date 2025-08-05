@@ -1,62 +1,80 @@
-.incidents-section {
-    padding: 1rem;
+.incidents-container {
+  padding: 1.5rem;
 }
 
-.incidents-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
+.incidents-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.incidents-table th, .incidents-table td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.incidents-table th {
-    background: #eee;
-    cursor: pointer;
+.styled-table th, .styled-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
+
+.styled-table th {
+  cursor: pointer;
+  background: #f4f4f4;
+}
+
+.styled-table tr:hover {
+  background: #f9f9f9;
+}
+
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn.primary { background: #29B6F6; color: white; }
+.btn.secondary { background: #ddd; color: black; }
 
 .modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex; align-items: center; justify-content: center;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
 }
 .modal.hidden { display: none; }
-
 .modal-content {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    width: 600px;
-    max-width: 90%;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
+.modal-content.large { width: 80%; display: flex; flex-direction: column; }
 
-.modal-content.large {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
+.modal-body { display: flex; gap: 1rem; }
+.details-map { flex: 2; height: 400px; background: #eee; }
+.details-info { flex: 1; overflow-y: auto; }
+
+.photo-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-
-.modal-body {
-    display: flex;
-    gap: 1rem;
-}
-
-.map-section {
-    flex: 2;
-}
-
-.info-section {
-    flex: 1;
-}
-
-.actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
+.photo-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
