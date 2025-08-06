@@ -1,60 +1,15 @@
-<section class="home-kpis">
-  <!-- Pestañas -->
-  <div class="tabs">
+<section class="dashboard">
+  <!-- Fila superior -->
+  <div class="top-bar">
+    <div id="avgIncidentResolution" class="card"></div>
+    <div id="panicActivations" class="card"></div>
+    <div id="incidentsReported" class="card"></div>
+    <div id="harshDrivingEvents" class="card"></div>
   </div>
 
-  <div class="tab-content active" id="homeTab">
-    <header>
-      <h2>DASHBOARD</h2>
-      <select id="periodSelector">
-        <option value="today">Hoy</option>
-        <option value="week">Semana</option>
-        <option value="month">Mes</option>
-      </select>
-    </header>
-
-    <!-- Barra de resumen -->
-    <div class="kpi-summary-bar">
-      <div class="kpi-summary-card" id="summary-AVG_SPEED">
-        <i class="fas fa-tachometer-alt"></i>
-        <div class="kpi-info">
-          <div class="kpi-value">--</div>
-          <div class="kpi-label">Velocidad Promedio</div>
-        </div>
-      </div>
-      <div class="kpi-summary-card" id="summary-DELAY_TIME">
-        <i class="fas fa-clock"></i>
-        <div class="kpi-info">
-          <div class="kpi-value">--</div>
-          <div class="kpi-label">Tiempo de Retraso</div>
-        </div>
-      </div>
-      <div class="kpi-summary-card" id="summary-FUEL_EFF">
-        <i class="fas fa-gas-pump"></i>
-        <div class="kpi-info">
-          <div class="kpi-value">--</div>
-          <div class="kpi-label">Eficiencia Combustible</div>
-        </div>
-      </div>
-      <div class="kpi-summary-card" id="summary-HARD_BRAKE">
-        <i class="fas fa-car-crash"></i>
-        <div class="kpi-info">
-          <div class="kpi-value">--</div>
-          <div class="kpi-label">Frenados Bruscos</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Grid de KPIs -->
-    <div class="kpi-grid">
-      <div id="AVG_SPEED" class="chart"></div>
-      <div id="DELAY_TIME" class="chart"></div>
-      <div id="FUEL_EFF" class="chart"></div>
-      <div id="HARD_BRAKE" class="chart"></div>
-      <div id="IDLE_TIME" class="chart"></div>
-      <div id="MAINT_COST" class="chart"></div>
-      <div id="ROUTE_COMP" class="chart"></div>
-      <div id="SAFETY_SC" class="chart"></div>
-    </div>
+  <!-- Fila inferior con gauges -->
+  <div class="bottom-gauges">
+    <div id="operativeVehicles" class="card gauge-card"></div>
+    <div id="onTimeTrips" class="card gauge-card"></div>
   </div>
 </section>

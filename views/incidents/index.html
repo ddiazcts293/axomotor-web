@@ -1,13 +1,26 @@
-<section class="incidents-container">
-  <header class="incidents-header">
-    <h2>Gestión de Incidentes</h2>
-    <button id="btnAddIncident" class="btn primary">Registrar Incidencia</button>
-  </header>
+<section class="incidents-view">
+  <h2>Gestión de Incidentes</h2>
 
-  <table id="incidentsTable" class="styled-table">
+  <!-- Botón Registrar -->
+  <div class="actions">
+    <button id="btnAddIncident" class="btn-primary">
+      <i class="fas fa-plus"></i> Registrar Incidente
+    </button>
+  </div>
+
+  <!-- Barra de filtros -->
+  <div class="filters">
+    <select id="filterType"></select>
+    <select id="filterStatus"></select>
+    <select id="filterPriority"></select>
+    <select id="filterCode"></select>
+  </div>
+
+  <!-- Tabla de incidentes -->
+  <table id="incidentsTable">
     <thead>
       <tr>
-        <th data-sort="incident">Incidente</th>
+        <th data-sort="code">Incidente</th>
         <th data-sort="type">Tipo</th>
         <th data-sort="priority">Prioridad</th>
         <th data-sort="status">Estado</th>
@@ -17,80 +30,78 @@
         <th>Acciones</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- Filas dinámicas -->
-    </tbody>
+    <tbody></tbody>
   </table>
 
-  <!-- Modal Registrar / Editar -->
-  <div id="incidentModal" class="modal hidden">
+  <!-- Modal Registrar Incidente -->
+  <div id="modalAddIncident" class="modal hidden">
     <div class="modal-content">
-      <header>
-        <h3 id="modalTitle">Registrar Incidencia</h3>
-        <button class="close-modal">&times;</button>
-      </header>
-      <form id="incidentForm">
-        <label>Viaje 
-          <select id="tripSelect" required>
-            <option value="">Cargando viajes...</option>
-          </select>
-        </label>
+      <h3>Registrar Incidente</h3>
+      <form id="formAddIncident" enctype="multipart/form-data">
+        <label for="tripSelect">Viaje *</label>
+        <select id="tripSelect" required></select>
 
-        <label>Tipo de incidente 
-          <select id="typeSelect" required>
-            <option value="mechanical">Mecánico</option>
-            <option value="electrical">Eléctrico</option>
-            <option value="other">Otro</option>
-          </select>
-        </label>
+        <label for="incidentCode">Código *</label>
+        <select id="incidentCode" required>
+          <!-- Opciones llenadas por JS desde INCIDENT_CODES -->
+        </select>
 
-        <label>Incidente 
-          <select id="incidentCodeSelect" required>
-            <option value="">Seleccione un incidente</option>
-          </select>
-        </label>
+        <label for="incidentDescription">Descripción *</label>
+        <textarea id="incidentDescription" required></textarea>
 
-        <label>Descripción 
-          <textarea id="description"></textarea>
-        </label>
+        <label for="relatedIncident">Incidente Relacionado (opcional)</label>
+        <input type="text" id="relatedIncident" />
 
-        <label>Comentarios 
-          <textarea id="comments"></textarea>
-        </label>
+        <label for="incidentPictures">Fotos (opcional)</label>
+        <input type="file" id="incidentPictures" accept="image/*" multiple />
+        <div id="picturesPreview" style="display:flex; gap:10px; margin-top:10px;"></div>
 
-        <label>Incidente relacionado 
-          <select id="relatedIncidentSelect">
-            <option value="">Ninguno</option>
-          </select>
-        </label>
-
-        <label>Subir fotos 
-          <input type="file" id="photoUpload" multiple accept="image/*">
-        </label>
-        <div id="photoPreview" class="photo-preview"></div>
-
-        <footer>
-          <button type="submit" class="btn primary">Guardar</button>
-          <button type="button" class="btn secondary close-modal">Cancelar</button>
-        </footer>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Registrar</button>
+          <button type="button" class="btn-secondary btn-close">Cancelar</button>
+        </div>
       </form>
     </div>
   </div>
 
-  <!-- Modal Ver Detalles -->
-  <div id="incidentDetailsModal" class="modal hidden">
+  <!-- Modal Ver Incidente -->
+  <div id="modalViewIncident" class="modal hidden">
     <div class="modal-content large">
-      <header>
-        <h3>Detalles de la Incidencia</h3>
-        <button class="close-modal">&times;</button>
-      </header>
-      <div class="modal-body">
-        <div class="details-map" id="incidentMap">[Mapa aquí]</div>
-        <div class="details-info" id="incidentDetailsInfo"></div>
-      </div>
-      <footer>
-        <button class="btn secondary close-modal">Cerrar</button>
-      </footer>
+      <h3>Detalles del Incidente</h3>
+      <ul id="incidentDetails"></ul>
+      <div id="incidentPicturesView" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
+      <button type="button" class="btn-secondary btn-close">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal Editar Incidente -->
+  <div id="modalEditIncident" class="modal hidden">
+    <div class="modal-content">
+      <h3>Editar Incidente</h3>
+      <form id="formEditIncident">
+        <label for="editStatus">Estado</label>
+        <select id="editStatus">
+          <option value="open">Abierto</option>
+          <option value="inRevision">En revisión</option>
+          <option value="closed">Cerrado</option>
+          <option value="discarded">Descartado</option>
+        </select>
+
+        <label for="editPriority">Prioridad</label>
+        <select id="editPriority">
+          <option value="low">Baja</option>
+          <option value="medium">Media</option>
+          <option value="high">Alta</option>
+        </select>
+
+        <label for="editComments">Comentarios</label>
+        <textarea id="editComments"></textarea>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Actualizar</button>
+          <button type="button" class="btn-secondary btn-close">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>

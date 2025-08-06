@@ -49,9 +49,9 @@ function renderVehicles() {
             <td>${v.enUso}</td>
             <td>${v.fechaRegistro}</td>
             <td>
-                <button class="infoBtn" data-id="${v.id}">ℹ️</button>
-                <button class="editBtn" data-id="${v.id}">✏️</button>
-                <button class="deleteBtn" data-id="${v.id}">🗑️</button>
+            <button class="infoBtn" data-id="${v.id}"><i class="fas fa-info-circle" style="color: black;"></i></button>
+            <button class="editBtn" data-id="${v.id}"><i class="fas fa-edit" style="color: black;"></i></button>
+            <button class="deleteBtn" data-id="${v.id}"><i class="fas fa-trash-alt" style="color: black;"></i></button>
             </td>
         `;
         tbody.appendChild(row);

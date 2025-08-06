@@ -95,8 +95,10 @@ async function del(endpoint, options = {}) {
 }
 
 // CRUD API con validaciones
+
 const AxoMotorWebAPI = {
   // Incidents
+  /*
   getAllIncidents: async () => {
     const response = await get('incidents');
     return response.items || [];
@@ -118,7 +120,7 @@ const AxoMotorWebAPI = {
     }
     return put(`incidents/${id}`, data);
   },
-  deleteIncident: (id) => del(`incidents/${id}`),
+  deleteIncident: (id) => del(`incidents/${id}`) */
 
   // Trips
   
@@ -388,6 +390,45 @@ createKnownLocation: async (locationData) => {
   }
   return response.result;
 },
+
+
+
+// === INCIDENTES ===
+getAllIncidents: async () => {
+  const response = await get('incidents');
+  if (response.code === "success" && response.result?.items) {
+    return response.result.items;
+  }
+  return [];
+},
+
+getIncidentById: async (incidentId) => {
+  if (!incidentId) throw new Error('El ID del incidente es obligatorio.');
+  const response = await get(`incidents/${incidentId}`);
+  if (response.code === "success" && response.result) {
+    return response.result;
+  }
+  return null;
+},
+
+createIncident: async (data) => {
+  const { tripId, code } = data || {};
+  if (!tripId || !code) {
+    throw new Error('El incidente debe tener tripId y code.');
+  }
+  return post('incidents', data);
+},
+
+updateIncident: async (incidentId, data) => {
+  if (!incidentId) throw new Error('El ID del incidente es obligatorio.');
+  return put(`incidents/${incidentId}`, data);
+},
+
+deleteIncident: async (incidentId) => {
+  if (!incidentId) throw new Error('El ID del incidente es obligatorio.');
+  return del(`incidents/${incidentId}`);
+},
+
 
 };
 

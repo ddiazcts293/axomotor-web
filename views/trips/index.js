@@ -387,9 +387,9 @@ let stops = []; // almacenará las paradas temporales
         }
 
         points.forEach((p, idx) => {
-            let icon = '/assets/stop.svg';
-            if (idx === 0) icon = '/assets/origin.svg';
-            else if (idx === points.length - 1) icon = '/assets/destination.svg';
+            let icon = '/assets/stop.png';
+            if (idx === 0) icon = '/assets/origin.png';
+            else if (idx === points.length - 1) icon = '/assets/destination.png';
             source.addFeature(createMarker(p.longitude, p.latitude, icon));
         });
 

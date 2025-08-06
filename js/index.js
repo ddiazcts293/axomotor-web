@@ -21,7 +21,7 @@ fetch('/views.json')
     .then(json => {
         views = json;
         buildMenu();
-        navigateTo('home', { navigateTo }); // empieza en /login 
+        navigateTo('incidents', { navigateTo }); // empieza en /login 
     });
 
     // construye el menú lateral dinámicamente
