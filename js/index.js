@@ -1,9 +1,9 @@
 let views = [];
 let currentView = null;
 let historyStack = [];
-let dataStore = {}; // permite pasar datos entre vistas
+let dataStore = {}; 
 
-// alternar sidebar colapsada
+
 const toggleMenuBtn = document.getElementById('toggleMenu');
 const sideMenu = document.getElementById('sideMenu');
 const viewContent = document.getElementById('viewContent');
@@ -11,26 +11,25 @@ const backButton = document.getElementById('backButton');
 const viewTitle = document.getElementById('viewTitle');
 const viewIcon = document.getElementById('viewIcon');
 
-// Guardamos el ultimo estado de la barra ( para trips xdddd)
+//Guardamos el ultimo estado de la barra ( para trips xdddd)
 let isSidebarCollapsed = false;
 
 
-// carga el archivo JSON con las vistas
+//carga el archivo JSON con las vistas
 fetch('/views.json')
     .then(res => res.json())
     .then(json => {
         views = json;
         buildMenu();
-        navigateTo('incidents', { navigateTo }); // empieza en /login 
+        navigateTo('trips', { navigateTo }); //empieza en /login 
     });
 
-    // construye el menú lateral dinámicamente
+   
     function buildMenu() {
     const content = document.querySelector('.sideMenu-content');
-    content.innerHTML = ''; // evita duplicados
+    content.innerHTML = ''; 
 
     views.forEach(view => {
-        // Excluir 'login' y 'settings' del menú lateral
         if (view.id === 'login' || view.id === 'settings') return;
 
         const btn = document.createElement('button');
@@ -41,13 +40,10 @@ fetch('/views.json')
     }
 
 
-    // cambia de vista usando imports dinámicos
 
     import { supabase } from '../secrets';
 
-    // cambia de vista usando imports dinámicos
     async function navigateTo(id, extraData = null, fromBackButton = false) {
-    // 🚨 protección de rutas
     if (id !== "login") {
         await updateUserMenu();
         const { data: { session } } = await supabase.auth.getSession();
@@ -85,13 +81,11 @@ fetch('/views.json')
         backButton.style.display = "inline-block";
         document.getElementById("viewHeader").style.display = "flex";
 
-        // 👉 Forzar colapsado al entrar a trips por primera vez
         if (id === "trips" && !historyStack.includes("trips")) {
             sideMenu.classList.add("collapsed");
             sideMenu.classList.remove("expanded");
             isSidebarCollapsed = true;
         } else {
-            // Restaurar estado previo
             if (isSidebarCollapsed) {
                 sideMenu.classList.add("collapsed");
                 sideMenu.classList.remove("expanded");
@@ -140,13 +134,13 @@ fetch('/views.json')
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
             const nombreUsuario = document.querySelector(".nombre-usuario");
-            nombreUsuario.textContent = user.email; // o user.user_metadata.fullName si lo guardas
+            nombreUsuario.textContent = user.email; 
         }
     }
 
 
 
-    // retrocede a la vista anterior
+
     backButton.onclick = () => {
         const last = historyStack.pop();
         if (last) navigateTo(last, null, true);

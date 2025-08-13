@@ -1,14 +1,13 @@
 <section class="incidents-view">
   <h2>Gestión de Incidentes</h2>
 
-  <!-- Botón Registrar -->
+
   <div class="actions">
     <button id="btnAddIncident" class="btn-primary">
       <i class="fas fa-plus"></i> Registrar Incidente
     </button>
   </div>
 
-  <!-- Barra de filtros -->
   <div class="filters">
     <select id="filterType"></select>
     <select id="filterStatus"></select>
@@ -16,7 +15,6 @@
     <select id="filterCode"></select>
   </div>
 
-  <!-- Tabla de incidentes -->
   <table id="incidentsTable">
     <thead>
       <tr>
@@ -33,7 +31,6 @@
     <tbody></tbody>
   </table>
 
-  <!-- Modal Registrar Incidente -->
   <div id="modalAddIncident" class="modal hidden">
     <div class="modal-content">
       <h3>Registrar Incidente</h3>
@@ -43,7 +40,6 @@
 
         <label for="incidentCode">Código *</label>
         <select id="incidentCode" required>
-          <!-- Opciones llenadas por JS desde INCIDENT_CODES -->
         </select>
 
         <label for="incidentDescription">Descripción *</label>
@@ -64,7 +60,6 @@
     </div>
   </div>
 
-  <!-- Modal Ver Incidente -->
   <div id="modalViewIncident" class="modal hidden">
     <div class="modal-content large">
       <h3>Detalles del Incidente</h3>
@@ -74,7 +69,6 @@
     </div>
   </div>
 
-  <!-- Modal Editar Incidente -->
   <div id="modalEditIncident" class="modal hidden">
     <div class="modal-content">
       <h3>Editar Incidente</h3>

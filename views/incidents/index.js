@@ -3,7 +3,7 @@ import AxoMotorWebAPI from '/services/axomotor.js';
 let modalAddIncident, modalViewIncident, modalEditIncident;
 let tbody;
 
-// Opciones válidas según la API
+
 const INCIDENT_CODES = [
   "engineFailure", "flatTire", "brakeIssues", "overheating", "batteryFailure",
   "oilLeak", "fuelLeak", "steeringFailure", "transmissionIssue", "accident",
@@ -20,7 +20,6 @@ const INCIDENT_TYPES = ["mechanical", "route", "cargo", "driver", "security", "o
 const INCIDENT_STATUSES = ["open", "inRevision", "closed", "discarded"];
 const INCIDENT_PRIORITIES = ["low", "medium", "high"];
 
-// 📌 Diccionarios de traducción
 const INCIDENT_CODES_ES = {
   engineFailure: "Falla de motor",
   flatTire: "Llanta ponchada",
@@ -83,7 +82,7 @@ const INCIDENT_PRIORITIES_ES = {
   high: "Alta"
 };
 
-// 📌 Función para traducir
+
 function translateIncident(field, value) {
   switch (field) {
     case "code": return INCIDENT_CODES_ES[value] || value;
@@ -104,7 +103,7 @@ export async function init() {
 
   document.getElementById("btnAddIncident").onclick = () => openModal(modalAddIncident);
 
-  // Vincular formulario
+
   document.getElementById("formAddIncident").onsubmit = async (e) => {
     e.preventDefault();
     await registrarIncidente();
@@ -118,14 +117,14 @@ export async function init() {
 
   };
 
-  populateFilters(); // llenar selects de filtros
+  populateFilters(); 
 
   await loadTrips();
   await loadIncidents();
   setupSorting();
 }
 
-// ---- Poblar Filtros ----
+
 function populateFilters() {
   fillSelect("filterCode", INCIDENT_CODES, "Incidente (todos)", "code");
   fillSelect("filterType", INCIDENT_TYPES, "Tipo (todos)", "type");
@@ -140,13 +139,13 @@ function fillSelect(selectId, options, defaultText, field) {
     options.map(o => `<option value="${o}">${translateIncident(field, o)}</option>`).join("");
 }
 
-// Cargar viajes activos en combobox
+
 async function loadTrips() {
   const trips = await AxoMotorWebAPI.getAllTrips();
   const tripSelect = document.getElementById("tripSelect");
   tripSelect.innerHTML = trips.map(t => `<option value="${t.tripId}">${t.details || t.tripId}</option>`).join("");
 }
-// 📌 Modificación en loadIncidents
+
 async function loadIncidents() {
   tbody.innerHTML = "";
   const incidents = await AxoMotorWebAPI.getAllIncidents();
@@ -181,7 +180,7 @@ async function loadIncidents() {
   });
 }
 
-// 📌 También actualizar la vista de detalles
+
 async function viewIncident(incident) {
   const fullIncident = await AxoMotorWebAPI.getIncidentById(incident.incidentId);
   const details = document.getElementById("incidentDetails");
@@ -203,14 +202,14 @@ async function viewIncident(incident) {
   openModal(modalViewIncident);
 }
 
-// Registrar incidente
+
 async function registrarIncidente() {
   const tripId = document.getElementById('tripSelect').value;
   const code = document.getElementById('incidentCode').value;
   const description = document.getElementById('incidentDescription').value;
   const relatedIncidentId = document.getElementById('relatedIncident').value || null;
 
-  const pictures = []; // luego puedes implementar carga de imágenes
+  const pictures = []; 
 
   try {
     await AxoMotorWebAPI.createIncident({
@@ -221,15 +220,15 @@ async function registrarIncidente() {
       pictures
     });
 
-    alert('<i class="fas fa-check-circle"></i> Incidente registrado correctamente');
+    alert('Incidente registrado correctamente');
     closeModal(modalAddIncident);
     await loadIncidents();
   } catch (error) {
-    alert('<i class="fas fa-times-circle"></i> Error al registrar incidente: ' + error.message);
+    alert('Error al registrar incidente: ' + error.message);
   }
 }
 
-// Editar incidente
+
 function editIncident(incident) {
   document.getElementById("editStatus").value = incident.status;
   document.getElementById("editPriority").value = incident.priority;
@@ -257,7 +256,7 @@ function editIncident(incident) {
   openModal(modalEditIncident);
 }
 
-// Ordenar tabla
+
 function setupSorting() {
   document.querySelectorAll("#incidentsTable thead th[data-sort]").forEach(th => {
     th.addEventListener("click", () => {
@@ -269,7 +268,7 @@ function setupSorting() {
   });
 }
 
-// Helpers
+
 function openModal(modal) { modal.classList.remove("hidden"); }
 function closeModal(modal) { modal.classList.add("hidden"); }
 function formatDate(date) { return date ? new Date(date).toLocaleString() : "N/A"; }

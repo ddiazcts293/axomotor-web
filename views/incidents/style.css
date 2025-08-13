@@ -1,4 +1,3 @@
-/* Contenedor principal */
 .incidents-view {
   max-width: 1000px;
   margin: 0 auto;
@@ -8,7 +7,7 @@
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-/* Acciones */
+
 .actions {
   margin-bottom: 15px;
   text-align: right;
@@ -64,7 +63,7 @@
   background-color: #ddd;
 }
 
-/* Filtros */
+
 .filters {
   display: flex;
   gap: 15px;
@@ -89,7 +88,6 @@
   outline: none;
 }
 
-/* Tabla */
 #incidentsTable {
   width: 100%;
   border-collapse: collapse;
@@ -117,7 +115,7 @@
   background-color: #f0f8ff;
 }
 
-/* Estados y prioridades con colores */
+
 .priority-low {
   color: #27ae60;
   font-weight: 600;
@@ -153,7 +151,6 @@
   font-weight: 600;
 }
 
-/* Modal Overlay y centrar contenido */
 .modal {
   position: fixed;
   top: 0;
@@ -189,7 +186,6 @@
   max-width: 900px;
 }
 
-/* Formulario */
 form label {
   display: block;
   font-weight: 600;
@@ -213,7 +209,6 @@ form textarea {
   min-height: 80px;
 }
 
-/* Acciones del formulario */
 .form-actions,
 .form-buttons {
   margin-top: 20px;
@@ -223,7 +218,6 @@ form textarea {
   justify-content: flex-end;
 }
 
-/* Preview imágenes */
 #picturesPreview img {
   width: 70px;
   height: 70px;
@@ -233,7 +227,6 @@ form textarea {
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 
-/* Vista fotos en modal ver */
 #incidentPicturesView img {
   width: 120px;
   height: 120px;
@@ -249,12 +242,11 @@ form textarea {
   transform: scale(1.05);
 }
 
-/* Botón cerrar en modal */
+
 .btn-close {
   margin-top: 15px;
 }
 
-/* Responsive */
 @media (max-width: 650px) {
   .filters {
     flex-direction: column;
@@ -263,7 +255,7 @@ form textarea {
     min-width: 100%;
   }
 } 
-/* Estilo base para botones con iconos FontAwesome */
+
 .btn-small {
   background: none;
   border: none;
@@ -278,7 +270,7 @@ form textarea {
   justify-content: center;
 }
 
-/* Hover y foco */
+
 .btn-small:hover, .btn-small:focus {
   color: #007BFF;
   outline: none;
@@ -286,7 +278,6 @@ form textarea {
   background-color: rgba(0,123,255,0.1);
 }
 
-/* Específicos por tipo */
 .btn-view {
   color: #2d89ef;
 }
@@ -308,8 +299,7 @@ form textarea {
   color: #a83228;
 }
 
-/* Para iconos dentro de botones, evitar espacios raros */
 .btn-small i {
-  pointer-events: none; /* que no interfieran con click */
+  pointer-events: none; 
   display: inline-block;
 }

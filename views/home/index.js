@@ -1,6 +1,6 @@
 let client;
 
-// Umbrales de tu base de datos
+
 const kpiThresholds = {
   OperativeVehiclesPercentage: { type: "Percent", thresholds: [90, 75, 50, 25, 0] },
   OnTimeTripsCompletedPercentage: { type: "Percent", thresholds: [90, 80, 70, 50, 30] },
@@ -10,7 +10,7 @@ const kpiThresholds = {
   HarshDrivingEvents: { type: "Range", thresholds: [0, 4, 8, 16, 32] }
 };
 
-// Mapeo de estados a español
+
 const statusTranslations = {
   optimal: "Óptimo",
   good: "Bueno",
@@ -20,7 +20,18 @@ const statusTranslations = {
   notData: "Sin datos"
 };
 
-// Calcular estado según thresholds
+
+const kpiIcons = {
+  operativeVehicles: "fa-solid fa-truck-fast",
+  onTimeTrips: "fa-solid fa-clock",
+  avgIncidentResolution: "fa-solid fa-hourglass-half",
+  panicActivations: "fa-solid fa-bell",
+  incidentsReported: "fa-solid fa-triangle-exclamation",
+  harshDrivingEvents: "fa-solid fa-car-burst"
+};
+
+
+
 function getStatus(kpiKey, value) {
   if (value === null || value === undefined) return "notData";
 
@@ -57,42 +68,43 @@ function getStatus(kpiKey, value) {
   }
 }
 
-// 📌 Inicializar vista Home
-export async function init({ navigateTo }, dataStore) {
-  console.log("📡 Conectando al broker MQTT...");
+  export async function init({ navigateTo }, dataStore) {
+    console.log("Conectando al broker MQTT...");
 
-  client = mqtt.connect("wss://broker.emqx.io:8084/mqtt", {
-    clientId: "Axomotor_" + Math.random().toString(16).substr(2, 8)
+    client = mqtt.connect("ws://axolutions.site/mqtt", {
+    clientId: "Axomotor_" + Math.random().toString(16).substr(2, 8),
+    username: "webpage",
+    password: "ef4oEY9T7Vp4"
   });
 
-  client.on("connect", () => {
-    console.log("✅ Conectado al broker MQTT");
 
-    // Suscripción al tópico de KPIs
-    client.subscribe("axomotor/kpis", (err) => {
-      if (!err) console.log("📩 Suscrito a axomotor/kpis");
-      else console.error("❌ Error al suscribirse", err);
+  client.on("connect", () => {
+    console.log("Conectado al broker MQTT");
+
+
+    client.subscribe("dashboard", (err) => {
+      if (!err) console.log("Suscrito a axomotor/kpis");
+      else console.error("Error al suscribirse", err);
     });
   });
 
   client.on("message", (topic, message) => {
     try {
       const data = JSON.parse(message.toString());
-      console.log("📊 KPIs recibidos:", data);
+      console.log("KPIs recibidos:", data);
       renderKPIs(data);
     } catch (e) {
-      console.error("❌ Error parseando mensaje MQTT", e);
+      console.error("Error parseando mensaje MQTT", e);
     }
   });
 
   client.on("error", (err) => {
-    console.error("❌ Error de conexión MQTT:", err);
+    console.error("Error de conexión MQTT:", err);
   });
 }
 
-// 📌 Renderizar todos los KPIs
 function renderKPIs(data) {
-  const operativeVal = data.operativeVehiclesPercentage.value;
+  const operativeVal = data.operativeVehiclesPercentage.value * 100;
   const operativeStatus = data.operativeVehiclesPercentage.status !== "notData"
     ? data.operativeVehiclesPercentage.status
     : getStatus("OperativeVehiclesPercentage", operativeVal);
@@ -103,7 +115,7 @@ function renderKPIs(data) {
     operativeStatus
   );
 
-  const onTimeVal = data.onTimeTripsCompletedPercentage.value;
+  const onTimeVal = data.onTimeTripsCompletedPercentage.value * 100;
   const onTimeStatus = data.onTimeTripsCompletedPercentage.status !== "notData"
     ? data.onTimeTripsCompletedPercentage.status
     : getStatus("OnTimeTripsCompletedPercentage", onTimeVal);
@@ -139,20 +151,24 @@ function renderKPIs(data) {
   );
 }
 
-// 📌 Renderizar KPI tipo gauge
+
 function renderGauge(container, title, value, status) {
   const el = document.getElementById(container);
   if (!el) {
-    console.warn(`⚠️ Contenedor no encontrado: ${container}`);
+    console.warn(`Contenedor no encontrado: ${container}`);
     return;
   }
 
   const safeStatus = status ? status.toLowerCase() : "notdata";
-  el.className = `card status-${safeStatus}`;
+  el.className = `card gauge-card status-${safeStatus}`;
 
   Highcharts.chart(container, {
-    chart: { type: 'solidgauge' },
-    title: { text: title },
+    chart: { type: 'solidgauge', backgroundColor: 'transparent' },
+    title: { 
+      useHTML: true,
+      text: `<i class="${kpiIcons[container]}" style="font-size:24px; margin-right:6px;"></i> ${title}`,
+      style: { color: '#fff', fontSize: '14px', fontWeight: '600' }
+    },
     pane: {
       center: ['50%', '60%'],
       size: '100%',
@@ -174,18 +190,20 @@ function renderGauge(container, title, value, status) {
   });
 }
 
+
 function renderValue(container, title, value, status) {
   const el = document.getElementById(container);
   if (!el) {
-    console.warn(`⚠️ Contenedor no encontrado: ${container}`);
+    console.warn(`Contenedor no encontrado: ${container}`);
     return;
   }
 
   const safeStatus = status ? status.toLowerCase() : "notdata";
   const translatedStatus = statusTranslations[status] || "Sin datos";
-  
+
   el.className = `card status-${safeStatus}`;
   el.innerHTML = `
+    <div class="kpi-icon"><i class="${kpiIcons[container]}"></i></div>
     <h3>${title}</h3>
     <p><strong>${value ?? "N/D"}</strong></p>
     <p class="estado">Estado: ${translatedStatus}</p>

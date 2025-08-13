@@ -2,7 +2,6 @@ import AxoMotorWebAPI from '../../services/axomotor.js';
 let driversData = [];
 
 
-// inicializa la vista
 export async function init(extraData, dataStore) {
     const selectEstado = document.getElementById("estadoSelect");
     const tbody = document.getElementById("driversTableBody");
@@ -36,17 +35,16 @@ export async function init(extraData, dataStore) {
             });
     }
 
-    // Carga los datos
+
     await loadDrivers();
 
-    // evento de filtrado
+
     selectEstado.addEventListener("change", () => {
         renderTable(selectEstado.value);
     });
 }
 
 
-// opcional: limpiar si se sale de la vista
 export function cleanUp() {
     document.getElementById("driversTableBody").innerHTML = "";
 }

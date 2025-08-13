@@ -1,7 +1,6 @@
 @import './theme.css';
 @import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 
-/* BODY */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -10,14 +9,14 @@ body {
   user-select: none;
 }
 
-/* APP CONTAINER */
+
 #appContainer {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* SIDEBAR */
+
 #sideMenu {
   width: 300px;
   background: var(--sideMenu);
@@ -27,7 +26,6 @@ body {
   color: var(--topBarText);
 }
 
-/* SIDEBAR COLLAPSED */
 #sideMenu.collapsed {
   width: 70px;
 }
@@ -35,12 +33,12 @@ body {
 #sideMenu.collapsed .logo {
   display: none;
 }
-/* Cuando la sidebar está colapsada */
+
 #sideMenu.collapsed .foto,
 #sideMenu.collapsed .nombre-usuario {
-  display: none; /* Oculta foto y nombre */
+  display: none; 
 }#sideMenu.collapsed .footer-user {
-  justify-content: center; /* Centra solo la herramienta */
+  justify-content: center;
 }
 
 #sideMenu.collapsed .sideMenu-content button span.text {
@@ -84,7 +82,6 @@ body {
   margin-top: 8px;
 }
 
-/* SIDEBAR HEADER */
 .sideMenu-header {
   display: flex;
   align-items: center;
@@ -94,7 +91,6 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* LOGO */
 .logo-container {
   display: flex;
   align-items: center;
@@ -116,7 +112,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* MENU ICON */
 .menu-icon {
   background: transparent;
   border: none;
@@ -132,7 +127,6 @@ body {
   padding: 4px 8px;
 }
 
-/* SIDEBAR CONTENT */
 .sideMenu-content {
   flex: 1;
   display: flex;
@@ -159,7 +153,6 @@ body {
   background: rgba(255,255,255,0.15);
 }
 
-/* SIDEBAR FOOTER */
 .sideMenu-footer {
   padding: 15px;
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -228,7 +221,6 @@ body {
   justify-content: center;
 }
 
-/* MAIN PANEL */
 #mainPanel {
   flex-grow: 1;
   padding: 25px 30px;
@@ -239,7 +231,6 @@ body {
   min-width: 0;
 }
 
-/* VIEW HEADER */
 #viewHeader {
   display: flex;
   align-items: center;
@@ -254,7 +245,6 @@ body {
   font-size: 1.5rem;
 }
 
-/* BACK BUTTON */
 #backButton {
   background: var(--topBar);
   color: var(--topBarText);
@@ -276,7 +266,7 @@ body {
   background-color: #3e7bd9;
 }
 
-/* TABLES */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -306,7 +296,7 @@ tbody tr:hover {
   cursor: pointer;
 }
 
-/* BUTTONS */
+
 button {
   font-family: inherit;
   font-size: 1rem;
@@ -329,7 +319,6 @@ button:disabled {
   cursor: default;
 }
 
-/* TOGGLE MENU */
 #toggleMenu {
   background: transparent;
   border: none;
@@ -345,7 +334,6 @@ button:disabled {
   background-color: rgba(255 255 255 / 0.15);
 }
 
-/* MODAL */
 .modal {
   position: fixed;
   top: 0; left: 0;
@@ -417,7 +405,6 @@ button:disabled {
   min-height: 80px;
 }
 
-/* MODAL ACTIONS */
 .actions {
   margin-top: 20px;
   display: flex;
@@ -425,12 +412,11 @@ button:disabled {
   gap: 12px;
 }
 
-/* FORMS */
+
 form {
   margin: 0;
 }
 
-/* SCROLLBAR FOR MODAL */
 .modal-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -440,7 +426,6 @@ form {
   border-radius: 4px;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   #appContainer {
     flex-direction: column;

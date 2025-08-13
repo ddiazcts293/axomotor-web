@@ -18,7 +18,7 @@ let selectedTrip = null;
 let map = null;
 let vectorLayer = null;
 let editingTripId = null;
-let stops = []; // almacenará las paradas temporales
+let stops = [];
 
 
     export async function init(extraData, dataStore) {
@@ -84,13 +84,11 @@ let stops = []; // almacenará las paradas temporales
 
 
         function setupEventHandlers() {
-            // Botón cerrar modal de info
             const closeInfoTrip = document.getElementById("closeInfoTrip");
             if (closeInfoTrip) {
                 closeInfoTrip.onclick = () => toggleModal("modalTripInfo", false);
             }
 
-            // Botón "Nuevo Viaje"
             const btnNewTrip = document.getElementById("btnNewTrip");
             if (btnNewTrip) {
                 btnNewTrip.onclick = async () => {
@@ -103,7 +101,7 @@ let stops = []; // almacenará las paradas temporales
                 };
             }
 
-            // Botón agregar parada
+
             document.getElementById("btnAddStop").addEventListener("click", async () => {
             const stopId = parseInt(document.getElementById("stopLocation").value);
             const stopDateTimeInput = document.getElementById("stopDateTime").value;
@@ -117,7 +115,7 @@ let stops = []; // almacenará las paradas temporales
                 return;
             }
 
-            // Obtener info del lugar por id
+
             let allLocations = await AxoMotorWebAPI.getKnownLocations2();
             if (allLocations && typeof allLocations === "object" && !Array.isArray(allLocations)) {
                 if (Array.isArray(allLocations.result)) {
@@ -142,12 +140,11 @@ let stops = []; // almacenará las paradas temporales
             stops.push(newStop);
             renderStops();
 
-            // Opcional: limpiar selector y fecha
+
             document.getElementById("stopDateTime").value = "";
             });
 
 
-            // Formulario de creación de viaje
             const createTripForm = document.getElementById("createTripForm");
             if (createTripForm) {
                 createTripForm.onsubmit = async (e) => {
@@ -192,7 +189,7 @@ let stops = []; // almacenará las paradas temporales
 
                         alert("Viaje creado con éxito");
                         toggleModal("modalCreateTrip", false);
-                        init(); // refrescar la tabla
+                        init(); 
                     } catch (error) {
                         console.error("Error creando viaje:", error);
                         alert("No se pudo crear el viaje");
@@ -200,13 +197,11 @@ let stops = []; // almacenará las paradas temporales
                 };
             }
 
-            // Cancelar modal de crear viaje
             const cancelCreateTrip = document.getElementById("cancelCreateTrip");
             if (cancelCreateTrip) cancelCreateTrip.onclick = () => toggleModal("modalCreateTrip", false);
             const closeCreateTrip = document.getElementById("closeCreateTrip");
             if (closeCreateTrip) closeCreateTrip.onclick = () => toggleModal("modalCreateTrip", false);
 
-            // Botones de la tabla
             attachRowEvents();
         }
 
@@ -227,7 +222,7 @@ let stops = []; // almacenará las paradas temporales
             document.getElementById("btnFullscreenMap").addEventListener("click", () => {
             const mapContainer = document.querySelector(".map-container");
             mapContainer.classList.toggle("map-fullscreen");
-            map.updateSize(); // importante para que OpenLayers redibuje
+            map.updateSize(); 
             });
 
 
@@ -250,7 +245,7 @@ let stops = []; // almacenará las paradas temporales
                     <p><b>Fin:</b> ${selectedTrip.destination?.dateTime?.replace("T", " ").slice(0, 16)}</p>
                 `;
 
-                // Renderizar paradas
+
                 const stopsTbody = document.getElementById("stopsTableBody");
                 stopsTbody.innerHTML = "";
                 if (Array.isArray(selectedTrip.plannedStops) && selectedTrip.plannedStops.length > 0) {
@@ -267,7 +262,7 @@ let stops = []; // almacenará las paradas temporales
                     stopsTbody.innerHTML = `<tr><td colspan="3">Sin paradas planificadas</td></tr>`;
                 }
 
-                // Mostrar en el mapa
+
                 updateMap(selectedTrip);
 
                 toggleModal("modalTripInfo", true);
@@ -291,7 +286,6 @@ let stops = []; // almacenará las paradas temporales
 
             editingTripId = id;
 
-            // Setear el valor actual en el select
             document.getElementById("tripStatus").value = trip.status || "planned";
 
             toggleModal("modalEditTrip", true);
@@ -301,7 +295,7 @@ let stops = []; // almacenará las paradas temporales
         }
     }
 
-    // Eventos del modal de edición
+
     document.getElementById("editTripForm").onsubmit = async (e) => {
         e.preventDefault();
         if (!editingTripId) return;
@@ -312,7 +306,7 @@ let stops = []; // almacenará las paradas temporales
             await AxoMotorWebAPI.updateTrip(editingTripId, { status: newStatus });
             alert("Estado del viaje actualizado con éxito");
             toggleModal("modalEditTrip", false);
-            init(); // recargar tabla
+            init(); 
         } catch (error) {
             console.error(error);
             alert("Error al actualizar el estado del viaje");
@@ -335,7 +329,7 @@ let stops = []; // almacenará las paradas temporales
     try {
         await AxoMotorWebAPI.deleteTrip(id);
         alert("Viaje eliminado con éxito");
-        init(); // recargar la tabla
+        init();
     } catch (error) {
         console.error(error);
         alert("Error al eliminar el viaje");
@@ -350,7 +344,7 @@ let stops = []; // almacenará las paradas temporales
                     new TileLayer({ source: new OSM() })
                 ],
                 view: new View({
-                    center: [-116.8253, 32.4613], // coords aproximadas
+                    center: [-116.8253, 32.4613],
                     zoom: 13,
                     projection: 'EPSG:4326'
                 })
@@ -366,13 +360,13 @@ let stops = []; // almacenará las paradas temporales
             async function updateMap(trip) {
         const source = new VectorSource();
 
-        // Construimos lista de puntos: origen + paradas + destino
+
         const points = [];
         if (trip.origin) points.push(trip.origin);
         if (Array.isArray(trip.plannedStops)) points.push(...trip.plannedStops);
         if (trip.destination) points.push(trip.destination);
 
-        // Marcadores
+
         function createMarker(lon, lat, iconUrl) {
             const feature = new Feature({
                 geometry: new Point([lon, lat])
@@ -380,7 +374,7 @@ let stops = []; // almacenará las paradas temporales
             feature.setStyle(new Style({
                 image: new Icon({
                     src: iconUrl,
-                    scale: 0.05
+                    scale: 0.07
                 })
             }));
             return feature;
@@ -393,7 +387,7 @@ let stops = []; // almacenará las paradas temporales
             source.addFeature(createMarker(p.longitude, p.latitude, icon));
         });
 
-        // Ruta con OSRM
+
         const routeCoords = await fetchRoute(points);
         if (routeCoords.length > 0) {
             const lineFeature = new Feature({
@@ -407,7 +401,7 @@ let stops = []; // almacenará las paradas temporales
             }));
             source.addFeature(lineFeature);
 
-            // Centrar mapa en la ruta
+
             map.getView().fit(lineFeature.getGeometry().getExtent(), {
                 padding: [50, 50, 50, 50],
                 maxZoom: 15
@@ -448,26 +442,26 @@ let stops = []; // almacenará las paradas temporales
     }));
 
     vectorLayer.setSource(source);
-}
+    }
 
 
     
-    // Botón "Nuevo Viaje"
+
         document.getElementById("btnNewTrip").onclick = async () => {
         toggleModal("modalCreateTrip", true);
 
         await fillSelect(
         document.getElementById("driverId"),
         AxoMotorWebAPI.getAllDrivers2,
-        "fullName", // texto mostrado
-        "id"        // valor del option
+        "fullName", 
+        "id"        
         );
 
         await fillSelect(
             document.getElementById("vehicleId"),
             AxoMotorWebAPI.getAllVehicles2,
-            "details", // texto mostrado
-            "id"       // valor del option
+            "details", 
+            "id"       
         );
         await fillSelect(
         document.getElementById("originLocation"),
@@ -488,7 +482,7 @@ let stops = []; // almacenará las paradas temporales
         async function loadStopLocationsSelect() {
         let allLocations = await AxoMotorWebAPI.getKnownLocations2();
 
-        // Si es objeto con .result
+
         if (allLocations && typeof allLocations === "object" && !Array.isArray(allLocations)) {
             if (Array.isArray(allLocations.result)) {
             allLocations = allLocations.result;
@@ -498,7 +492,7 @@ let stops = []; // almacenará las paradas temporales
         const originId = parseInt(document.getElementById("originLocation").value);
         const destinationId = parseInt(document.getElementById("destinationLocation").value);
 
-        // Filtrar quitando origen y destino
+
         const filteredLocations = allLocations.filter(loc => loc.id !== originId && loc.id !== destinationId);
 
         const stopSelect = document.getElementById("stopLocation");
@@ -516,7 +510,7 @@ let stops = []; // almacenará las paradas temporales
          try {
         let data = await fetchFunction();
 
-        // Si data es objeto y tiene result, usarlo
+
         if (data && typeof data === 'object' && !Array.isArray(data)) {
         if (Array.isArray(data.result)) {
             data = data.result;
@@ -539,27 +533,6 @@ let stops = []; // almacenará las paradas temporales
         }
 
 
-    /*
-    // Agregar paradas
-    document.getElementById("btnAddStop").addEventListener("click", () => {
-    const stopName = prompt("Nombre de la parada:");
-    const stopAddress = prompt("Dirección:");
-    const stopDateTime = prompt("Fecha y hora (YYYY-MM-DD HH:mm):");
-
-    if (!stopName || !stopAddress || !stopDateTime) return;
-
-    const newStop = {
-        latitude: 0,
-        longitude: 0,
-        name: stopName,
-        address: stopAddress,
-        ratio: 1000,
-        dateTime: new Date(stopDateTime).toISOString()
-    };
-
-    stops.push(newStop);
-    renderStops();
-    });*/
 
     function renderStops() {
     const tbody = document.getElementById("plannedStopsBody");
@@ -592,7 +565,6 @@ let stops = []; // almacenará las paradas temporales
         const originId = parseInt(document.getElementById("originLocation").value);
         const destinationId = parseInt(document.getElementById("destinationLocation").value);
 
-        // Obtener la lista de lugares
         const knownLocations = await AxoMotorWebAPI.getKnownLocations2();
 
         const originLocation = knownLocations.find(loc => loc.id === originId);
@@ -635,23 +607,21 @@ let stops = []; // almacenará las paradas temporales
 
         alert("Viaje creado con éxito");
         toggleModal("modalCreateTrip", false);
-        init(); // recargar tabla
+        init(); 
     } catch (error) {
         console.error("Error creando viaje:", error);
         alert("No se pudo crear el viaje");
     }
     };
 
-    // Abrir modal para registrar lugar
+
     document.getElementById("btnNewLocation").onclick = () => {
     toggleModal("modalNewLocation", true);
     };
 
-    // Cerrar modal
     document.getElementById("closeNewLocation").onclick = () => toggleModal("modalNewLocation", false);
     document.getElementById("cancelNewLocation").onclick = () => toggleModal("modalNewLocation", false);
 
-    // Enviar nuevo lugar
     document.getElementById("newLocationForm").onsubmit = async (e) => {
     e.preventDefault();
 
@@ -663,7 +633,6 @@ let stops = []; // almacenará las paradas temporales
         ratio: parseFloat(document.getElementById("locationRatio").value)
     };
 
-    // Validaciones simples
     if(newLocation.longitude < -180 || newLocation.longitude > 180) {
     alert("La longitud debe estar entre -180 y 180");
     return;
@@ -685,7 +654,6 @@ let stops = []; // almacenará las paradas temporales
 
         toggleModal("modalNewLocation", false);
 
-        // Recargar selects de origen y destino
         await fillSelect(
         document.getElementById("originLocation"),
         AxoMotorWebAPI.getKnownLocations2,
@@ -706,7 +674,6 @@ let stops = []; // almacenará las paradas temporales
 
     async function fetchRoute(points) {
         try {
-            // Construimos la query con todos los puntos encadenados
             const coords = points.map(p => `${p.longitude},${p.latitude}`).join(';');
 
             const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
@@ -716,7 +683,7 @@ let stops = []; // almacenará las paradas temporales
             const data = await response.json();
 
             if (data.routes && data.routes.length > 0) {
-                return data.routes[0].geometry.coordinates; // devuelve el arreglo de coordenadas
+                return data.routes[0].geometry.coordinates; 
             } else {
                 console.error("No se pudo calcular la ruta", data);
                 return [];
@@ -728,8 +695,6 @@ let stops = []; // almacenará las paradas temporales
     }
 
 
-
-    // Botones cancelar modal
     document.getElementById("closeCreateTrip").onclick = () => toggleModal("modalCreateTrip", false);
     document.getElementById("cancelCreateTrip").onclick = () => toggleModal("modalCreateTrip", false);
 

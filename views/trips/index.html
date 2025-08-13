@@ -1,8 +1,7 @@
 <section class="trips-section">
 
-  <!-- Layout con mapa (70%) y tabla (30%) -->
+
   <div class="trips-layout">
-    <!-- Mapa -->
     <div class="map-container">
       <div class="map-header">
         <h3><i class="fas fa-map-marked-alt"></i> Mapa de Viajes</h3>
@@ -13,7 +12,7 @@
       <div id="map"></div>
     </div>
 
-    <!-- Tabla -->
+
     <div class="trips-table-container">
       <div class="trips-table-header">
         <h3><i class="fas fa-list"></i> Lista de Viajes</h3>
@@ -39,7 +38,7 @@
     </div>
   </div>
 
-  <!-- Modal Detalles de Viaje -->
+
   <div id="modalTripInfo" class="modal hidden">
     <div class="modal-content">
       <span id="closeInfoTrip" class="close"><i class="fas fa-times"></i></span>
@@ -60,7 +59,6 @@
     </div>
   </div>
 
-  <!-- Modal Editar Viaje -->
   <div id="modalEditTrip" class="modal hidden">
     <div class="modal-content">
       <span id="closeEditTrip" class="close"><i class="fas fa-times"></i></span>
@@ -92,18 +90,15 @@
     </div>
   </div>
 
-  <!-- Modal Crear Viaje -->
   <div id="modalCreateTrip" class="modal hidden">
     <div class="modal-content">
       <span id="closeCreateTrip" class="close"><i class="fas fa-times"></i></span>
       <h3><i class="fas fa-plus-circle"></i> Crear Nuevo Viaje</h3>
 
       <form id="createTripForm">
-        <!-- Conductor -->
         <label for="driverId"><i class="fas fa-user-tie"></i> Conductor:</label>
         <select id="driverId" name="driverId" required></select>
 
-        <!-- Vehículo -->
         <label for="vehicleId"><i class="fas fa-car"></i> Vehículo:</label>
         <select id="vehicleId" name="vehicleId" required></select>
         
@@ -111,21 +106,19 @@
           <i class="fas fa-map-marker-alt"></i> Registrar nuevo lugar
         </button>
 
-        <!-- Origen -->
         <h4><i class="fas fa-arrow-circle-up"></i> Origen</h4>
         <label for="originLocation">Lugar:</label>
         <select id="originLocation" name="originLocation" required></select>
         <label for="originDateTime">Fecha y hora de salida:</label>
         <input type="datetime-local" id="originDateTime" name="originDateTime" required>
 
-        <!-- Destino -->
+
         <h4><i class="fas fa-arrow-circle-down"></i> Destino</h4>
         <label for="destinationLocation">Lugar:</label>
         <select id="destinationLocation" name="destinationLocation" required></select>
         <label for="destinationDateTime">Fecha y hora de llegada:</label>
         <input type="datetime-local" id="destinationDateTime" name="destinationDateTime" required>
 
-        <!-- Agregar Parada -->
         <h5><i class="fas fa-map-signs"></i> Agregar parada planificada</h5>
         <label for="stopLocation">Lugar:</label>
         <select id="stopLocation" name="stopLocation"></select>
@@ -137,7 +130,7 @@
           <i class="fas fa-plus"></i> Agregar Parada
         </button>
 
-        <!-- Paradas -->
+
         <h4><i class="fas fa-list"></i> Paradas planificadas</h4>
         <table class="styled-table">
           <thead>
@@ -159,7 +152,7 @@
     </div>
   </div>
 
-  <!-- Modal Registrar Lugar -->
+
   <div id="modalNewLocation" class="modal hidden">
     <div class="modal-content">
       <span id="closeNewLocation" class="close"><i class="fas fa-times"></i></span>

@@ -3,7 +3,7 @@ let vehicles = [];
 let selectedVehicle = null;
 
 export async function init(extraData, dataStore) {
-    // Ejemplo inicial de datos (puedes cargar de API en el futuro)
+
     try {
         const response = await AxoMotorWebAPI.getAllVehicles();
         console.log("Vehículos desde la API:", response);
@@ -86,7 +86,7 @@ function setupEventHandlers() {
 
             if (response.code === 'success') {
                 alert("Vehículo registrado exitosamente");
-                // Recargar lista después del registro (en el futuro)
+
                 toggleModal("modalAdd", false);
                 e.target.reset();
             } else {
@@ -99,7 +99,7 @@ function setupEventHandlers() {
 
     };
 
-    // Editar vehículo
+
     document.getElementById("formEditVehicle").onsubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -114,7 +114,6 @@ function setupEventHandlers() {
             const response = await AxoMotorWebAPI.updateVehicle(selectedVehicle.id, updatedData);
             console.log("Respuesta al actualizar:", response);
 
-            // Actualiza los datos locales por si renderizamos de nuevo
             selectedVehicle.matricula = updatedData.plateNumber;
             selectedVehicle.numRegistro = updatedData.registrationNumber;
             selectedVehicle.estado = updatedData.status;
