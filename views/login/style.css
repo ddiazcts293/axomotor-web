@@ -1,0 +1,130 @@
+.login-container {
+  height: 100vh; 
+  width: 100vw; 
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2e2e2e, #1c1c1c);
+}
+
+.login-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #2b2b2b;
+  border-radius: 0; 
+  box-shadow: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.login-form {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+  color: #f0f0f0;
+}
+
+.login-form form {
+  width: 80%;
+  max-width: 350px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h2 {
+  margin-bottom: 50px;
+  color: #ffffff;
+  font-size: 2.2rem;
+  text-align: center;
+  width: 100%; 
+}
+
+.input-group {
+  margin-bottom: 20px;
+  width: 100%; 
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #dcdcdc;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%; 
+  margin-left: 25px;
+  margin-top: 30px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #444;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #666;
+}
+
+.error-msg {
+  margin-top: 15px;
+  color: #ff6b6b;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.login-logo {
+  background: #1c1c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo img {
+  filter: invert(100%) brightness(200%);
+  max-width: 60%;
+  height: auto;
+}
+
+
+#mainPanel {
+  padding: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .login-logo {
+    padding: 20px;
+  }
+
+  .login-logo img {
+    max-width: 40%;
+  }
+}

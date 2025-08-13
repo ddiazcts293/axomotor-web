@@ -1,11 +1,101 @@
-<h2>Incidentes</h2>
-<p>algo</p>
-<div id="container"></div>
-<p class="highcharts-description">
-    This chart shows how symbols and shapes can be used in charts.
-    Highcharts includes several common symbol shapes, such as squares,
-    circles and triangles, but it is also possible to add your own
-    custom symbols. In this chart, custom weather symbols are used on
-    data points to highlight that certain temperatures are warm while
-    others are cold.
-</p>
+<section class="incidents-view">
+  <h2>Gestión de Incidentes</h2>
+
+
+  <div class="actions">
+    <button id="btnAddIncident" class="btn-primary">
+      <i class="fas fa-plus"></i> Registrar Incidente
+    </button>
+  </div>
+
+  <div class="filters">
+    <select id="filterType"></select>
+    <select id="filterStatus"></select>
+    <select id="filterPriority"></select>
+    <select id="filterCode"></select>
+  </div>
+
+  <table id="incidentsTable">
+    <thead>
+      <tr>
+        <th data-sort="code">Incidente</th>
+        <th data-sort="type">Tipo</th>
+        <th data-sort="priority">Prioridad</th>
+        <th data-sort="status">Estado</th>
+        <th data-sort="registeredBy">Registrado por</th>
+        <th data-sort="registrationDate">Fecha de registro</th>
+        <th data-sort="revisionDate">Última actualización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="modalAddIncident" class="modal hidden">
+    <div class="modal-content">
+      <h3>Registrar Incidente</h3>
+      <form id="formAddIncident" enctype="multipart/form-data">
+        <label for="tripSelect">Viaje *</label>
+        <select id="tripSelect" required></select>
+
+        <label for="incidentCode">Código *</label>
+        <select id="incidentCode" required>
+        </select>
+
+        <label for="incidentDescription">Descripción *</label>
+        <textarea id="incidentDescription" required></textarea>
+
+        <label for="relatedIncident">Incidente Relacionado (opcional)</label>
+        <input type="text" id="relatedIncident" />
+
+        <label for="incidentPictures">Fotos (opcional)</label>
+        <input type="file" id="incidentPictures" accept="image/*" multiple />
+        <div id="picturesPreview" style="display:flex; gap:10px; margin-top:10px;"></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Registrar</button>
+          <button type="button" class="btn-secondary btn-close">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modalViewIncident" class="modal hidden">
+    <div class="modal-content large">
+      <h3>Detalles del Incidente</h3>
+      <ul id="incidentDetails"></ul>
+      <div id="incidentPicturesView" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
+      <button type="button" class="btn-secondary btn-close">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modalEditIncident" class="modal hidden">
+    <div class="modal-content">
+      <h3>Editar Incidente</h3>
+      <form id="formEditIncident">
+        <label for="editStatus">Estado</label>
+        <select id="editStatus">
+          <option value="open">Abierto</option>
+          <option value="inRevision">En revisión</option>
+          <option value="closed">Cerrado</option>
+          <option value="discarded">Descartado</option>
+        </select>
+
+        <label for="editPriority">Prioridad</label>
+        <select id="editPriority">
+          <option value="low">Baja</option>
+          <option value="medium">Media</option>
+          <option value="high">Alta</option>
+        </select>
+
+        <label for="editComments">Comentarios</label>
+        <textarea id="editComments"></textarea>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Actualizar</button>
+          <button type="button" class="btn-secondary btn-close">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

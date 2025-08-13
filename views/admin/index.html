@@ -1,2 +1,109 @@
-<h2>Panel de administración</h2>
-<p>algo</p>
+<section class="admin-section">
+    <div class="tabs">
+        <button class="tab-button active" data-tab="usersTab">Cuentas de Usuario</button>
+    </div>
+
+    <div class="tab-content active" id="usersTab">
+        <header>
+            <label for="filterType">Filtrar por tipo:</label>
+            <select id="filterType">
+                <option value="all">Todos</option>
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
+            </select>
+            <button id="btnAddUser">Registrar Usuario</button>
+        </header>
+
+        <table id="usersTable" class="users-table">
+            <thead>
+                <tr>
+                    <th data-col="nombre">Nombre</th>
+                    <th data-col="apellidos">Apellidos</th>
+                    <th data-col="tipo">Tipo de cuenta</th>
+                    <th data-col="correo">Correo electrónico</th>
+                    <th data-col="estado">Estado</th>
+                    <th data-col="logged">Ha iniciado sesión</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+        </table>
+    </div>
+</section>
+
+<div id="modalAddUser" class="modal hidden">
+    <div class="modal-content">
+        <h3>Registrar Nuevo Usuario</h3>
+        <form id="formAddUser">
+            <label>Nombre <input type="text" name="nombre" required></label>
+            <label>Apellidos <input type="text" name="apellidos" required></label>
+            <label>Correo electrónico <input type="email" name="correo" required></label>
+            <label>Número de teléfono <input type="tel" name="telefono"></label>
+            <label>Tipo de cuenta
+                <select name="tipo" required>
+                    <option value="admin">Administrador</option>
+                    <option value="user">Usuario</option>
+                </select>
+            </label>
+            <div class="actions">
+                <button type="submit">Registrar</button>
+                <button type="button" id="cancelAddUser">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalEditUser" class="modal hidden">
+    <div class="modal-content">
+        <h3>Editar Usuario</h3>
+        <form id="formEditUser">
+            <label>Nombre <input type="text" name="nombre" required></label>
+            <label>Apellidos <input type="text" name="apellidos" required></label>
+            <label>Correo electrónico <input type="email" name="correo" required></label>
+            <label>Número de teléfono <input type="tel" name="telefono"></label>
+            <label>Estado
+                <select name="estado">
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </label>
+            <div class="actions">
+                <button type="submit">Actualizar</button>
+                <button type="button" id="cancelEditUser">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalInfoUser" class="modal hidden">
+    <div class="modal-content">
+        <h3>Información de Usuario</h3>
+        <div id="userDetails"></div>
+        <div class="actions">
+            <button id="closeInfoUser">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalResetPassword" class="modal hidden">
+    <div class="modal-content">
+        <h3>Restablecer Contraseña</h3>
+        <p id="resetUserName"></p>
+        <div class="actions">
+            <button id="confirmResetPassword">Restablecer</button>
+            <button id="cancelResetPassword">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalDeleteUser" class="modal hidden">
+    <div class="modal-content">
+        <h3>Eliminar Usuario</h3>
+        <p>¿Seguro que deseas eliminar esta cuenta?</p>
+        <div class="actions">
+            <button id="confirmDeleteUser">Eliminar</button>
+            <button id="cancelDeleteUser">Cancelar</button>
+        </div>
+    </div>
+</div>

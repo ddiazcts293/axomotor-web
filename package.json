@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "@supabase/supabase-js": "^2.53.0",
     "highcharts": "^12.3.0",
     "ol": "^10.6.1"
   },

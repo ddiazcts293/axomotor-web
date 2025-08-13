@@ -1,45 +1,455 @@
 @import './theme.css';
+@import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  user-select: none;
 }
 
-#topBar {
-  background: var(--topBar);
+
+#appContainer {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+#sideMenu {
+  width: 300px;
+  background: var(--sideMenu);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
   color: var(--topBarText);
-  padding: 10px;
+}
+
+#sideMenu.collapsed {
+  width: 70px;
+}
+
+#sideMenu.collapsed .logo {
+  display: none;
+}
+
+#sideMenu.collapsed .foto,
+#sideMenu.collapsed .nombre-usuario {
+  display: none; 
+}#sideMenu.collapsed .footer-user {
+  justify-content: center;
+}
+
+#sideMenu.collapsed .sideMenu-content button span.text {
+  display: none;
+}
+
+#sideMenu.collapsed .sideMenu-content button {
+  justify-content: center;
+}
+
+#sideMenu.collapsed .sideMenu-header {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  gap: 12px;
+}
+
+#sideMenu.collapsed .footer-top,
+#sideMenu.collapsed .logout-btn {
+  display: none;
+}
+
+#sideMenu.collapsed .nombre-usuario {
+  display: none;
+}
+
+#sideMenu.collapsed .logo-text {
+  display: none;
+}
+
+#sideMenu.collapsed .logo-container {
+  justify-content: center;
+}
+
+#sideMenu.collapsed .logo-img {
+  margin: 0 auto;
+}
+
+#sideMenu.collapsed .menu-icon {
+  margin-top: 8px;
+}
+
+.sideMenu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-container {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#appContainer {
+.logo-img {
+  filter: invert(100%) brightness(200%);
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--topBarText);
+  transition: opacity 0.3s ease;
+}
+
+.menu-icon {
+  background: transparent;
+  border: none;
+  color: var(--topBarText);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.menu-icon:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.sideMenu-content {
+  flex: 1;
   display: flex;
-}
-
-#sideMenu {
-  width: 200px;
-  background: var(--sideMenu);
+  flex-direction: column;
   padding: 10px;
+  gap: 8px;
 }
 
-#sideMenu.hidden {
-  display: none;
+.sideMenu-content button {
+  background: transparent;
+  border: none;
+  color: var(--topBarText);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  transition: background 0.25s ease;
+}
+
+.sideMenu-content button:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.sideMenu-footer {
+  padding: 15px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.foto {
+  background: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.nombre-usuario {
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--topBarText);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.herramienta button {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: var(--topBar);
+  color: var(--topBarText);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.herramienta button:hover {
+  background: #9b9b9b;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
 }
 
 #mainPanel {
   flex-grow: 1;
-  padding: 20px;
+  padding: 25px 30px;
+  overflow-y: auto;
+  background: white;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  border-radius: 0 12px 12px 0;
+  min-width: 0;
 }
 
-#sectionHeader {
+#viewHeader {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 15px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--topBar);
 }
 
-.hidden {
-  display: none;
+#viewIcon {
+  font-size: 1.5rem;
+}
+
+#backButton {
+  background: var(--topBar);
+  color: var(--topBarText);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: background-color 0.25s ease;
+}
+
+#backButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#backButton:not(:disabled):hover {
+  background-color: #3e7bd9;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+th, td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e2e2;
+  text-align: left;
+  vertical-align: middle;
+}
+
+thead tr {
+  background: var(--table);
+  color: var(--topBarText);
+  font-weight: 700;
+  user-select: none;
+}
+
+tbody tr:hover {
+  background: #f2f7ff;
+  cursor: pointer;
+}
+
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 14px;
+  background-color: var(--topBar);
+  color: var(--topBarText);
+  transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #868686;
+  color: white;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#toggleMenu {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--topBarText);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.25s ease;
+}
+
+#toggleMenu:hover {
+  background-color: rgba(255 255 255 / 0.15);
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  padding: 24px 30px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+  font-size: 1rem;
+  color: #222;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--topBar);
+}
+
+.modal-content label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="tel"],
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="email"]:focus,
+.modal-content input[type="tel"]:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: var(--topBar);
+}
+
+.modal-content textarea {
+  min-height: 80px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+
+form {
+  margin: 0;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--topBar);
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  #appContainer {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  #sideMenu {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px 5px;
+    box-shadow: none;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  
+  #sideMenu button {
+    flex: 1 0 auto;
+    padding: 10px 5px;
+    font-size: 0.9rem;
+    justify-content: center;
+  }
+  
+  #mainPanel {
+    padding: 15px 20px;
+  }
 }

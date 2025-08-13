@@ -1,4 +1,185 @@
-<h2>Viajes</h2>
-<p>algo</p>
-<div id="map"></div>
-<link rel="stylesheet" href="./style.css">
+<section class="trips-section">
+
+
+  <div class="trips-layout">
+    <div class="map-container">
+      <div class="map-header">
+        <h3><i class="fas fa-map-marked-alt"></i> Mapa de Viajes</h3>
+        <button id="btnFullscreenMap" class="btn secondary">
+          <i class="fas fa-expand"></i> Maximizar
+        </button>
+      </div>
+      <div id="map"></div>
+    </div>
+
+
+    <div class="trips-table-container">
+      <div class="trips-table-header">
+        <h3><i class="fas fa-list"></i> Lista de Viajes</h3>
+        <div class="trips-actions">
+          <button id="btnNewTrip" class="btn primary">
+            <i class="fas fa-plus"></i> Nuevo Viaje
+          </button>
+        </div>
+      </div>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th><i class="fas fa-map-marker-alt"></i> Origen</th>
+            <th><i class="fas fa-flag-checkered"></i> Destino</th>
+            <th><i class="fas fa-user-tie"></i> Conductor</th>
+            <th><i class="fas fa-car"></i> Vehículo</th>
+            <th><i class="fas fa-info-circle"></i> Estado</th>
+            <th><i class="fas fa-cogs"></i> Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tripsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div id="modalTripInfo" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeInfoTrip" class="close"><i class="fas fa-times"></i></span>
+      <h3><i class="fas fa-info-circle"></i> Detalles del Viaje</h3>
+      <div id="tripDetails"></div>
+
+      <h4><i class="fas fa-map-pin"></i> Paradas planificadas</h4>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Hora estimada</th>
+          </tr>
+        </thead>
+        <tbody id="stopsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="modalEditTrip" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeEditTrip" class="close"><i class="fas fa-times"></i></span>
+      <h3><i class="fas fa-edit"></i> Editar Estado del Viaje</h3>
+      
+      <form id="editTripForm">
+        <label for="tripStatus"><i class="fas fa-info-circle"></i> Estado:</label>
+        <select id="tripStatus" name="tripStatus" required>
+          <option value="planned">Planned</option>
+          <option value="delayed">Delayed</option>
+          <option value="onRoute">On Route</option>
+          <option value="atBase">At Base</option>
+          <option value="stopped">Stopped</option>
+          <option value="finished">Finished</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="aborted">Aborted</option>
+          <option value="gpsSignalLost">GPS Signal Lost</option>
+        </select>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn primary">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar
+          </button>
+          <button type="button" id="cancelEditTrip" class="btn secondary">
+            <i class="fa-solid fa-xmark"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modalCreateTrip" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeCreateTrip" class="close"><i class="fas fa-times"></i></span>
+      <h3><i class="fas fa-plus-circle"></i> Crear Nuevo Viaje</h3>
+
+      <form id="createTripForm">
+        <label for="driverId"><i class="fas fa-user-tie"></i> Conductor:</label>
+        <select id="driverId" name="driverId" required></select>
+
+        <label for="vehicleId"><i class="fas fa-car"></i> Vehículo:</label>
+        <select id="vehicleId" name="vehicleId" required></select>
+        
+        <button type="button" id="btnNewLocation" class="btn secondary">
+          <i class="fas fa-map-marker-alt"></i> Registrar nuevo lugar
+        </button>
+
+        <h4><i class="fas fa-arrow-circle-up"></i> Origen</h4>
+        <label for="originLocation">Lugar:</label>
+        <select id="originLocation" name="originLocation" required></select>
+        <label for="originDateTime">Fecha y hora de salida:</label>
+        <input type="datetime-local" id="originDateTime" name="originDateTime" required>
+
+
+        <h4><i class="fas fa-arrow-circle-down"></i> Destino</h4>
+        <label for="destinationLocation">Lugar:</label>
+        <select id="destinationLocation" name="destinationLocation" required></select>
+        <label for="destinationDateTime">Fecha y hora de llegada:</label>
+        <input type="datetime-local" id="destinationDateTime" name="destinationDateTime" required>
+
+        <h5><i class="fas fa-map-signs"></i> Agregar parada planificada</h5>
+        <label for="stopLocation">Lugar:</label>
+        <select id="stopLocation" name="stopLocation"></select>
+
+        <label for="stopDateTime">Fecha y hora:</label>
+        <input type="datetime-local" id="stopDateTime" name="stopDateTime">
+
+        <button type="button" id="btnAddStop" class="btn primary">
+          <i class="fas fa-plus"></i> Agregar Parada
+        </button>
+
+
+        <h4><i class="fas fa-list"></i> Paradas planificadas</h4>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Fecha y Hora</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="plannedStopsBody"></tbody>
+        </table>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary"><i class="fas fa-check"></i> Crear Viaje</button>
+          <button type="button" id="cancelCreateTrip" class="btn secondary"><i class="fas fa-times"></i> Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="modalNewLocation" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeNewLocation" class="close"><i class="fas fa-times"></i></span>
+      <h3><i class="fas fa-map-marker-alt"></i> Registrar Nuevo Lugar</h3>
+      
+      <form id="newLocationForm">
+        <label for="locationName">Nombre:</label>
+        <input type="text" id="locationName" name="locationName" required>
+
+        <label for="locationAddress">Dirección:</label>
+        <input type="text" id="locationAddress" name="locationAddress" required>
+
+        <label for="locationLongitude">Longitud (-180 a 180):</label>
+        <input type="number" id="locationLongitude" name="locationLongitude" step="0.000001" min="-180" max="180" required>
+
+        <label for="locationLatitude">Latitud (-90 a 90):</label>
+        <input type="number" id="locationLatitude" name="locationLatitude" step="0.000001" min="-90" max="90" required>
+
+        <label for="locationRatio">Ratio (0.1 a 1):</label>
+        <input type="number" id="locationRatio" name="locationRatio" step="0.01" min="0.1" max="1" required>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary"><i class="fas fa-save"></i> Guardar</button>
+          <button type="button" id="cancelNewLocation" class="btn secondary"><i class="fas fa-times"></i> Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>

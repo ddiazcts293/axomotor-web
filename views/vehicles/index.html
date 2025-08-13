@@ -1,2 +1,97 @@
-<h2>Vehículos</h2>
-<p>algo</p>
+<section class="vehicles-section">
+    <header>
+        <button id="btnAddVehicle">Registrar Vehículo</button>
+    </header>
+
+    <table class="vehicles-table">
+        <thead>
+            <tr>
+                <th style="color: #ffffff">Matrícula</th>
+                <th style="color: #ffffff">Marca / Modelo / Año</th>
+                <th style="color: #ffffff">Estado</th>
+                <th style="color: #ffffff">En uso</th>
+                <th style="color: #ffffff">Fecha Registro</th>
+                <th style="color: #ffffff">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="vehiclesTableBody">
+
+        </tbody>
+    </table>
+</section>
+
+<div id="modalAdd" class="modal hidden">
+    <div class="modal-content">
+        <h3>Registrar Vehículo</h3>
+        <form id="formAddVehicle">
+            <label>Clase* <input type="text" name="clase" required></label>
+            <label>Marca* <input type="text" name="marca" required></label>
+            <label>Modelo* <input type="text" name="modelo" required></label>
+            <label>Año* <input type="number" name="anio" required></label>
+            <label>Matrícula* <input type="text" name="matricula" required></label>
+            <label>Número Registro Vehicular* <input type="text" name="numRegistro" required></label>
+            <div class="actions">
+                <button type="submit">Registrar</button>
+                <button type="button" id="cancelAdd">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalEdit" class="modal hidden">
+    <div class="modal-content">
+        <h3>Editar Vehículo</h3>
+        <form id="formEditVehicle">
+            <label>Estado
+                <select name="estado">
+                    <option value="operative">Activo</option>
+                    <option value="outOfService">Inactivo</option>
+                    <option value="underMaintenance">Mantenimiento</option>
+                    <option value="documentsExpired">Documentos Expirados</option>
+                    <option value="heldByAuthorities">Retenido por las Autoridades</option>
+                </select>
+            </label>
+            <label>Matrícula <input type="text" name="matricula" required></label>
+            <label>Número Registro Vehicular <input type="text" name="numRegistro" required></label>
+            <div class="actions">
+                <button type="submit">Actualizar</button>
+                <button type="button" id="cancelEdit">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalInfo" class="modal hidden">
+    <div class="modal-content">
+        <h3>Información del Vehículo</h3>
+        <div id="vehicleDetails"></div>
+        <h4>Eventos del Dispositivo</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Tipo</th>
+                    <th>Severidad</th>
+                    <th>Fecha y Hora</th>
+                    <th>Registro</th>
+                    <th>Última Actualización</th>
+                </tr>
+            </thead>
+            <tbody id="eventsTableBody">
+
+            </tbody>
+        </table>
+        <button id="closeInfo">Cerrar</button>
+    </div>
+</div>
+
+<div id="modalDelete" class="modal hidden">
+    <div class="modal-content">
+        <h3>Eliminar Vehículo</h3>
+        <p>¿Estás seguro de eliminar este vehículo? Esta acción no se puede deshacer.</p>
+        <div class="actions">
+            <button id="confirmDelete">Eliminar</button>
+            <button id="cancelDelete">Cancelar</button>
+        </div>
+    </div>
+</div>
